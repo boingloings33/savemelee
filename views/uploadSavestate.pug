@@ -1,0 +1,28 @@
+extends base
+
+block content
+  section.margin__borders#savestate__form
+    div.form__section
+      h2.heading__secondary Upload Savestate
+      form.form
+        div.form__group
+          label.form__label(for='email') Character
+          select#characters.select__box(name="characters")
+            each character in charactersAlphabetized  
+              option(value=`${character}`) #{character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ')}
+        div.form__group
+          label.form__label(for='stage') Stage
+          select#stages.select__box(name="characters")
+            each stage in stages
+              option(value=`${stage}`) #{stage[0].toUpperCase() + stage.slice(1).toLowerCase().replaceAll('-', ' ')}
+        div.form__group
+          label.form__label(for='Description') Description
+          textarea#savestate__description(name="description", cols="50", rows="2") 
+        div.form__group
+          label.form__label(for='password-confirm') Select .gci File
+          input#file.form__input(
+            type='file',
+            required,
+          )             
+        div.form__group
+          button.btn.login__btn(type='submit') Upload

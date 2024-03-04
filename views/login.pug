@@ -1,0 +1,28 @@
+extends base
+
+block content
+  section.margin__borders#login__form
+    div.form__section
+      h2.heading__secondary Login to your account
+      form.form
+        div.form__group
+          label.form__label(for='email') Email address
+          input#email.form__input(
+            type='email',
+            placeholder='you@example.com',
+            required,
+            autocomplete='off'
+          )
+        div.form__group
+          label.form__label(for='password') Password
+          input#password.form__input(
+            type='password',
+            placeholder='••••••••',
+            required,
+            minlength='8',
+            autocomplete='new-password'
+          )
+        div.form__group
+          span.login__btn__group
+           button.btn.login__btn(type='submit') Login
+           a.btn(href= "/forgotPassword") Forgot Password? 

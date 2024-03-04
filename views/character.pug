@@ -1,0 +1,28 @@
+extends base
+
+block content
+  .character__token(data-token=`${characterSavestate[0].character}`)
+  .savestate__amount__token(data-token=`${savestateAmount}`)
+  section.margin__borders.character__page
+    table.savestate__table
+      thead
+        tr.savestate__row
+          th(scope="col") Character
+          th(scope="col") Description
+          th(scope="col") Stage
+          th(scope="col") File
+          th(scope="col") Uploaded By
+          th(scope="col") Rating
+      tbody
+        each savestate in characterSavestate
+          tr.savestate_row          
+              td.savestate__item #{ savestate.character }
+              td.savestate__item #{ savestate.description }
+              td.savestate__item #{ savestate.stage }
+              td.savestate__item file
+              td.savestate__item #{savestate.user.username}
+              td.savestate__item #{savestate.ratingsAverage}
+    div.page__btns
+      a.page__btn.page__btn__prev previous page
+      a.page__btn.page__btn__next next page
+  

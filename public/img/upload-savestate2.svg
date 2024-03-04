@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370.4 64.4">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #111334;
+      }
+
+      .cls-1, .cls-2 {
+        font-family: FolkPro-Medium-90ms-RKSJ-H, 'A-OTF Folk Pro';
+        font-size: 37.61px;
+        font-weight: 500;
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #101234;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        fill: #fdcd0b;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path class="cls-3" d="m15.6,63.9L0,43,22.3,0h321.5s26.6,5.8,26.6,32.2-26.6,32.2-26.6,32.2l-328.2-.5h0Z"/>
+  <text class="cls-1" transform="translate(27.64 45.55)"><tspan x="0" y="0">Upload Savestate</tspan></text>
+  <text class="cls-2" transform="translate(27.64 45.55)"><tspan x="0" y="0">Upload Savestate</tspan></text>
+</svg>
