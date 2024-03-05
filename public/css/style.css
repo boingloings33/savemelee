@@ -42,6 +42,38 @@ body {
   color: #1a1a1a;
 }
 
+.alert {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: 9999;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 1.6rem 15rem;
+  -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+}
+
+.alert__success {
+  background-color: #20bf6b;
+}
+.alert__error {
+  background-color: #eb4d4b;
+}
+
+.footer__flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
 /* HEADER */
 .header {
   max-width: 100vw;
@@ -68,6 +100,10 @@ body {
   gap: 14px;
 }
 
+.logout__btn {
+  cursor: pointer;
+}
+
 /* HOME PAGE */
 .margin__borders {
   margin: 0 18vw 0 18vw;
@@ -78,8 +114,9 @@ body {
 .home__page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   margin-top: 4rem;
+  gap: 48px;
+
   /* align-items: center; */
 }
 
@@ -148,6 +185,7 @@ th:last-child {
 tbody > tr:nth-of-type(even) {
   background-color: var(--white-alt);
 }
+
 .savestate__table {
   margin: 0 auto;
   width: 100%;
@@ -225,12 +263,14 @@ tbody > tr:nth-of-type(even) {
   margin-right: 0.5rem;
 }
 
-.login__btn:hover {
-  background-color: #dbaf00;
+.btn__yellow {
+  background-color: var(--sharp-yellow);
+  font-size: 14px;
+  padding: 0.75rem;
 }
 
-.login__btn__group {
-  color: white;
+.login__btn:hover {
+  background-color: #dbaf00;
 }
 
 .login__btn__group a:visited {
@@ -240,6 +280,7 @@ tbody > tr:nth-of-type(even) {
 
 a.btn {
   background-color: #d60101;
+  color: white;
 }
 a.btn:hover {
   background-color: #b40101;
@@ -273,14 +314,12 @@ a.btn:hover {
 
 /*  FOOTER */
 .footer__wrap {
-  margin-top: 12rem;
+  margin-top: 3rem;
 }
 
 .footer {
-  position: fixed;
   bottom: 0;
   width: 100vw;
-  margin-top: 3rem;
   background-color: var(--gamecube-color);
   color: white;
 }
@@ -302,4 +341,69 @@ a.btn:hover {
 
 .footer__text__title {
   font-size: 1.3rem;
+}
+
+/* ACCOUNT PAGE */
+.user-view {
+  background-color: #fff;
+  max-width: 120rem;
+  margin: 0 auto;
+  min-height: 100vh;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+}
+
+.user-view__menu {
+  flex: 32rem 0 0;
+  background-color: var(--gamecube-color);
+  padding: 4rem 0;
+}
+
+.user-view__content {
+  flex: 1;
+  padding: 7rem 0;
+}
+.user-view__form-container {
+  /* max-width: 68rem; */
+  margin: 0 auto;
+  padding: 0 8rem;
+}
+
+.side-nav {
+  list-style: none;
+}
+
+.side-nav a:link,
+.side-nav a:visited {
+  padding: 1rem 4rem;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.side-nav svg {
+  height: 1.9rem;
+  width: 1.9rem;
+  fill: #f7f7f7;
+  margin-right: 2rem;
+}
+.account__form__section {
+  gap: 14px;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 4rem;
+  background-color: var(--gamecube-color);
+  padding: 2.5rem 4rem 2.5rem 4rem;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.288);
+}
+
+.password__header {
+  margin-bottom: 1rem;
 }

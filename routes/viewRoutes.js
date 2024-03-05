@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { isLoggedIn } = require("../controllers/authController");
+const { isLoggedIn, protect } = require("../controllers/authController");
 const {
   getHome,
   getCharacterPage,
@@ -16,6 +16,6 @@ router.get("/", isLoggedIn, getHome);
 router.get("/character/:character/:page", isLoggedIn, getCharacterPage);
 router.get("/login", getLogin);
 router.get("/signup", getSignup);
-router.get("/me", getMe);
-router.get("/upload-savestate", getUploadSavestate);
+router.get("/me", protect, isLoggedIn, getMe);
+router.get("/upload-savestate", protect, isLoggedIn, getUploadSavestate);
 module.exports = router;
