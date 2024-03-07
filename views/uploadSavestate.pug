@@ -1,10 +1,10 @@
 extends base
 
 block content
-  section.margin__borders#savestate__form
+  section.margin__borders.upload__savestate__page
     div.form__section
       h2.heading__secondary Upload Savestate
-      form.form
+      form.form(enctype="multipart/form-data")
         div.form__group
           label.form__label(for='email') Character
           select#characters.select__box(name="characters")
@@ -16,8 +16,9 @@ block content
             each stage in stages
               option(value=`${stage}`) #{stage[0].toUpperCase() + stage.slice(1).toLowerCase().replaceAll('-', ' ')}
         div.form__group
-          label.form__label(for='Description') Description
-          textarea#savestate__description(name="description", cols="50", rows="2") 
+          label.form__label(for='Title') Title
+          input#savestate__title(name="title" maxlength="20" autocomplete="off") 
+          p#characters__remaining test
         div.form__group
           label.form__label(for='password-confirm') Select .gci File
           input#file.form__input(
@@ -26,3 +27,4 @@ block content
           )             
         div.form__group
           button.btn.login__btn(type='submit') Upload
+  div.user__id(data-token=`${user.id}`)

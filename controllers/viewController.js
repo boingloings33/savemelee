@@ -6,7 +6,6 @@ const User = require("../models/userModel");
 const characters = Savestate.schema.path("character").enumValues;
 const charactersAlphabetized = [...characters].sort();
 const stages = Savestate.schema.path("stage").enumValues.sort();
-console.log(stages);
 
 exports.getHome = catchAsync(async (req, res, next) => {
   res.status(200).render("home", {

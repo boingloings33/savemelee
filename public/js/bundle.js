@@ -2190,14 +2190,86 @@
     }
   };
 
+  // public/js/signup.js
+  var signup = async (email, username, password, passwordConfirm) => {
+    try {
+      const res = await axios_default({
+        method: "POST",
+        url: "/api/v1/users/signup",
+        data: {
+          username,
+          email,
+          password,
+          passwordConfirm
+        }
+      });
+      if (res.data.status === "success") {
+        showAlert("success", "Account Created!");
+        window.setTimeout(() => {
+          location.assign("/");
+        }, 1500);
+      }
+    } catch (err) {
+      showAlert("error", err.response.data.message);
+    }
+  };
+
+  // public/js/updateSetting.js
+  var updateSettings = async (username, email, type) => {
+    try {
+      const res = await axios_default({
+        method: "PATCH",
+        url: type === "data" ? "/api/v1/users/updateMe" : "/api/v1/users/updateMyPassword",
+        data: { username, email }
+      });
+      if (res.data.status === "success") {
+        showAlert(
+          "success",
+          type === "data" ? "Settings succesfully changed!" : "Password succesfully changed!"
+        );
+        window.setTimeout(() => {
+          location.assign("/me");
+        }, 1e3);
+      }
+    } catch (err) {
+      showAlert("error", err.response.data.message);
+    }
+  };
+
+  // public/js/uploadSavestate.js
+  var uploadSavestate = async (formData) => {
+    console.log(formData);
+    try {
+      const res = await axios_default({
+        method: "POST",
+        url: "/api/v1/savestates",
+        data: formData
+      });
+      if (res.data.status === "success") {
+        showAlert("success", "Savestate uploaded successfully!");
+        window.setTimeout(() => {
+          location.assign("/");
+        }, 1500);
+      }
+    } catch (err) {
+      showAlert("error", err.response.data.message);
+    }
+  };
+
   // public/js/index.js
   var characterPage = document.querySelector(".character__page");
+  var homePage = document.querySelector(".home__page");
+  var uploadSavestatePage = document.querySelector(".upload__savestate__page");
+  var userDataForm = document.querySelector(".user__data__form");
+  var updatePasswordForm = document.querySelector(".update__password__form");
   var loginForm = document.getElementById("login__form");
+  var signupForm = document.getElementById("signup__form");
   var nextButton = document.querySelector(".page__btn__next");
   var prevButton = document.querySelector(".page__btn__prev");
   var uploadSavestateImg = document.getElementById("upload__savestate");
-  var homePage = document.querySelector(".home__page");
   var logOutBtn = document.querySelector(".logout__btn");
+  var charactersRemaining = document.getElementById("characters__remaining");
+  var savestateDescription = document.getElementById("savestate__title");
   if (homePage) {
     uploadSavestateImg.addEventListener("mouseenter", () => {
       uploadSavestateImg.src = "/img/upload-savestate2.svg";
@@ -2226,6 +2298,18 @@
       prevButton.href = `/character/${characterToken}/${Number(currentUrlPage) - 1}`;
     });
   }
+  if (signupForm) {
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log("test");
+      const email = document.getElementById("email").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const passwordConfirm = document.getElementById("password__confirm").value;
+      console.log(email);
+      signup(email, username, password, passwordConfirm);
+    });
+  }
   if (loginForm) {
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -2236,5 +2320,32 @@
   }
   if (logOutBtn) {
     logOutBtn.addEventListener("click", logout);
+  }
+  if (userDataForm) {
+    userDataForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      updateSettings(name, email, "data");
+    });
+  }
+  if (updatePasswordForm) {
+  }
+  if (uploadSavestatePage) {
+    const form = document.querySelector(".form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const form2 = new FormData();
+      form2.append("character", document.getElementById("characters").value);
+      form2.append("stage", document.getElementById("stages").value);
+      form2.append("user", document.querySelector(".user__id").dataset.token);
+      form2.append("title", document.getElementById("savestate__title").value);
+      form2.append("file", document.getElementById("file").files[0]);
+      uploadSavestate(form2);
+    });
+    charactersRemaining.textContent = "0 / 20";
+    savestateDescription.addEventListener("input", () => {
+      charactersRemaining.textContent = ` ${savestateDescription.value.length} / 20`;
+    });
   }
 })();

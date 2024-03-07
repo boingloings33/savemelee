@@ -7,9 +7,12 @@ block content
       each character in characters
         a.character__box(href=`/character/${character}/1`)
           img(src=`/img/character-icons/${character}.png`, alt="character-image" )
-    h1.home__title or
-    a.savestate__wrapper(href="/upload-savestate") 
-      img#upload__savestate(src='/img/upload-savestate1.svg')
+    if (user)
+      h1.home__title or
+      a.savestate__wrapper(href="/upload-savestate") 
+        img#upload__savestate(src='/img/upload-savestate1.svg')
+  
+         
 
     //- h1 savestates      
     //- ul.savestates

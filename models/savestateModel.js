@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const savestateSchema = new mongoose.Schema({
-  description: {
+  title: {
     type: String,
     required: [true, "Please provide a title"],
+    maxlength: [20, "Title can't be more than 20 characters"],
   },
   stage: {
     type: String,

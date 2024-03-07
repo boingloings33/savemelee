@@ -8,7 +8,6 @@ const hpp = require("hpp");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const compression = require("compression");
-
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
@@ -88,7 +87,7 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // Body parser, reading data from body into req.body
-app.use(express.json({ limit: "10kb" }));
+app.use(express.json({ limit: "50kb" }));
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection

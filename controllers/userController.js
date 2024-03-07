@@ -23,10 +23,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   }
 
   // 2) Filter out unwanted field names
-  const filteredBody = filterObj(req.body, "username", "email");
 
   // 3) Update user document
-  const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, {
     new: true,
     runValidators: true,
   });

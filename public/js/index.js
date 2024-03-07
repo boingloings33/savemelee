@@ -1,12 +1,21 @@
 import { login, logout } from "./login";
+import { signup } from "./signup";
+import { updateSettings } from "./updateSetting";
+import { uploadSavestate } from "./uploadSavestate";
 
 const characterPage = document.querySelector(".character__page");
+const homePage = document.querySelector(".home__page");
+const uploadSavestatePage = document.querySelector(".upload__savestate__page");
+const userDataForm = document.querySelector(".user__data__form");
+const updatePasswordForm = document.querySelector(".update__password__form");
 const loginForm = document.getElementById("login__form");
+const signupForm = document.getElementById("signup__form");
 const nextButton = document.querySelector(".page__btn__next");
 const prevButton = document.querySelector(".page__btn__prev");
 const uploadSavestateImg = document.getElementById("upload__savestate");
-const homePage = document.querySelector(".home__page");
 const logOutBtn = document.querySelector(".logout__btn");
+const charactersRemaining = document.getElementById("characters__remaining");
+const savestateDescription = document.getElementById("savestate__title");
 
 if (homePage) {
   uploadSavestateImg.addEventListener("mouseenter", () => {
@@ -44,6 +53,22 @@ if (characterPage) {
   });
 }
 
+// if (accountPage) {
+// }
+
+if (signupForm) {
+  signupForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("test");
+    const email = document.getElementById("email").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const passwordConfirm = document.getElementById("password__confirm").value;
+    console.log(email);
+    signup(email, username, password, passwordConfirm);
+  });
+}
+
 if (loginForm) {
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -52,7 +77,37 @@ if (loginForm) {
     login(email, password);
   });
 }
-
 if (logOutBtn) {
   logOutBtn.addEventListener("click", logout);
+}
+
+if (userDataForm) {
+  userDataForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    updateSettings(name, email, "data");
+  });
+}
+if (updatePasswordForm) {
+}
+
+if (uploadSavestatePage) {
+  const form = document.querySelector(".form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append("character", document.getElementById("characters").value);
+    form.append("stage", document.getElementById("stages").value);
+    form.append("user", document.querySelector(".user__id").dataset.token);
+    form.append("title", document.getElementById("savestate__title").value);
+    form.append("file", document.getElementById("file").files[0]);
+    uploadSavestate(form);
+  });
+
+  charactersRemaining.textContent = "0 / 20";
+  savestateDescription.addEventListener("input", () => {
+    charactersRemaining.textContent = ` ${savestateDescription.value.length} / 20`;
+  });
 }

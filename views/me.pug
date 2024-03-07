@@ -1,31 +1,30 @@
 extends base
 
 block content
-  .margin__borders#account__page
-      .account__form__section
-        .user-view__form-container
-          h2.heading__secondary Account Settings
-          form.form.form-user-data
-            .form__group
-              label.form__label(for='name') Name
-              input#name.form__input(
-                type='text',
-                value=`${user.username}`,
-                required
-              )
-            .form__group
-              label.form__label(for='email') Email address
-              input#email.form__input(
-                type='email',
-                value=`${user.email}`,
-                required
-              )
-            .form__group  
-              button.btn.btn__yellow Save settings
+  div.margin__borders#account__page
+      div.account__form__section.user__data__form
+        h2.heading__secondary Account Settings
+        form.form.form__user__data
+          div.form__group
+            label.form__label(for='name') Username
+            input#name.form__input(
+              type='text',
+              value=`${user.username}`,
+              required
+            )
+          div.form__group
+            label.form__label(for='email') Email address
+            input#email.form__input(
+              type='email',
+              value=`${user.email}`,
+              required
+            )
+          div.form__group  
+            button.btn.btn__yellow Save settings
         .line &nbsp;
-        .user-view__form-container
-          h2.heading-secondary.password__header Password change
-          form.form.form-user-settings
+        div.update__password__form
+          h2.heading__secondary Update Password
+          form.form.form__user__data
             .form__group
               label.form__label(for='password-current') Current password
               input#password-current.form__input(
