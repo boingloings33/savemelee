@@ -9,8 +9,10 @@ block content
           img(src=`/img/character-icons/${character}.png`, alt="character-image" )
     if (user)
       h1.home__title or
-      a.savestate__wrapper(href="/upload-savestate") 
-        img#upload__savestate(src='/img/upload-savestate1.svg')
+      a.savestate__wrapper.upload__btn(href="/upload-savestate") Upload Savestate
+    if (!user)
+      h1.home__subtitle (or log in to upload a savestate...)      
+       
   
          
 

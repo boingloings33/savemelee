@@ -11,6 +11,6 @@ header.header
           h4 Sign Up
     if (user)
       .header__text 
-        h4.logout__btn Log Out   
-        a(href="/me")
+        a.user__button(href="/me")
           h4 #{user.username}      
+        h4.logout__btn Log Out   

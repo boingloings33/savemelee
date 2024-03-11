@@ -57,6 +57,14 @@ module.exports = class Email {
       "Your password reset token (valid for only 10 minutes)"
     );
   }
+
+  async sendReport() {
+    const mailOptions = {
+      from: this.to,
+      to: this.from,
+    };
+    await this.newTransporter().sendMail(mailOptions);
+  }
 };
 
 // const sendEmail = async (options) => {

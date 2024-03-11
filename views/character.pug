@@ -3,28 +3,60 @@ extends base
 block content
   if (characterSavestate.length > 0)
     section.margin__borders.character__page
+      //- dialog.report__dialog
+        p Report a savestate
+        form.report__form(method='POST' action="https://formspree.io/f/mayrbbew")
+          div
+            label Vulgar/Offensive Language 
+              input(type="radio" name="report" value="vulgar" checked)
+          div
+            label Duplicate
+              input(type="radio" name="report" value="duplicate")
+          div
+            label Doesn't Work
+              input(type="radio" name="report" value="doesn't__work")
+          div
+            label(for="wrong__characters") Wrong Character(s)
+              input(type="radio" name="report" value="wrong__characters")
+          div
+            label Other
+              input(type="radio" name="report" value="other")
+          button(type="submit").dialog__submit Submit
+
       table.savestate__table
         thead
           tr.savestate__row
-            th(scope="col") Character
+            th(scope="col") As
+            th(scope="col") Against
             th(scope="col") Title
-            th(scope="col") Stage
+            //- th(scope="col") Stage
             th(scope="col") File
             th(scope="col") Uploaded By
-            //- th(scope="col") Rating
+            
         tbody
           each savestate in characterSavestate
             tr.savestate_row          
-                td.savestate__item #{ savestate.character }
+                td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/')}
+                td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
                 td.savestate__item #{ savestate.title }
-                td.savestate__item #{ savestate.stage }
+                //- td.savestate__item #{ savestate.stage[0].toUpperCase() + savestate.stage.slice(1).toLowerCase().replaceAll('-', ' ') }
                 td.savestate__item
                   a(href=`/gci/${savestate.file}` download) Download
-                td.savestate__item #{savestate.user.username}
-                //- td.savestate__item #{savestate.ratingsAverage}
+                if (savestate.user)  
+                  td.savestate__item.icon__group #{savestate.user.username}
+                    span
+                      //- a.report__btn(data-token=`${savestate._id}`)
+                        svg.icon
+                          use(xlink:href=`/img/icons.svg#icon-alert-triangle`)
+                      a.share__btn(data-token=`${savestate._id}`)
+                        svg.icon
+                          use(xlink:href=`/img/icons.svg#icon-share`)
+                if (!savestate.user)
+                  td.savestate__item.icon__group --ACCOUNT DELETED--       
       div.page__btns
         a.page__btn.page__btn__prev previous page
         a.page__btn.page__btn__next next page
+        p.page__counter --PAGENUMBERS--
     div.character__token(data-token=`${characterSavestate[0].character}`)
     div.savestate__amount__token(data-token=`${savestateAmount}`)
   if (characterSavestate.length === 0)

@@ -34,9 +34,9 @@ const upload = multer({
 
 exports.uploadGCIFile = upload.single("file");
 exports.createSavestate = catchAsync(async (req, res) => {
-  console.log(req.file);
   const newSavestate = await Savestate.create({
     character: req.body.character,
+    characterAgainst: req.body.characterAgainst,
     stage: req.body.stage,
     user: req.body.user,
     title: req.body.title,
@@ -49,9 +49,7 @@ exports.createSavestate = catchAsync(async (req, res) => {
 });
 
 exports.getAllSavestates = factory.getAll(Savestate);
-exports.getSavestate = factory.getOne(Savestate, {
-  path: "reviews",
-});
+exports.getSavestate = factory.getOne(Savestate);
 exports.updateSavestate = factory.updateOne(Savestate);
 
 exports.deleteSavestate = factory.deleteOne(Savestate);
@@ -65,7 +63,9 @@ exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(
     Savestate.find({ character: req.params.character }),
     req.query
-  ).paginate();
+  )
+    .paginate()
+    .sort();
 
   const savestates = await features.query;
 

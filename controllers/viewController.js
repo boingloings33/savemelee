@@ -2,10 +2,11 @@ const axios = require("axios");
 
 const catchAsync = require("../utils/catchAsync");
 const Savestate = require("../models/savestateModel");
-const User = require("../models/userModel");
 const characters = Savestate.schema.path("character").enumValues;
-const charactersAlphabetized = [...characters].sort();
-const stages = Savestate.schema.path("stage").enumValues.sort();
+const charactersAlphabetized = [...characters]
+  .sort()
+  .filter((string) => string !== "filler");
+// const stages = Savestate.schema.path("stage").enumValues.sort();
 
 exports.getHome = catchAsync(async (req, res, next) => {
   res.status(200).render("home", {
@@ -51,6 +52,12 @@ exports.getSignup = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getDeleteAccount = catchAsync(async (req, res, next) => {
+  res.status(200).render("deleteAccount", {
+    title: "Delete Account",
+  });
+});
+
 exports.getMe = catchAsync(async (req, res, next) => {
   res.status(200).render("me", {
     title: "Profile",
@@ -61,6 +68,19 @@ exports.getUploadSavestate = catchAsync(async (req, res, next) => {
   res.status(200).render("uploadSavestate", {
     title: "Upload Savestate",
     charactersAlphabetized,
-    stages,
+  });
+});
+
+exports.getSavestate = catchAsync(async (req, res, next) => {
+  const result = await axios({
+    method: "GET",
+    url: `${req.protocol}://${req.get("host")}/api/v1/savestates/${req.params.id}`,
+  });
+
+  const userSavestate = result.data.doc;
+
+  res.status(200).render("shareSavestate", {
+    title: "Share Savestate",
+    userSavestate,
   });
 });

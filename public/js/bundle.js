@@ -2152,7 +2152,7 @@
     hideAlert();
     const markup = `<div class="alert alert__${type}">${msg}</div>`;
     document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-    window.setTimeout(hideAlert, 5e3);
+    window.setTimeout(hideAlert, 3e3);
   };
 
   // public/js/login.js
@@ -2248,7 +2248,7 @@
       if (res.data.status === "success") {
         showAlert("success", "Savestate uploaded successfully!");
         window.setTimeout(() => {
-          location.assign("/");
+          location.assign("/upload-savestate");
         }, 1500);
       }
     } catch (err) {
@@ -2256,35 +2256,51 @@
     }
   };
 
+  // public/js/deleteAccount.js
+  var deleteAccount = async (input) => {
+    if (input === "DELETE") {
+      try {
+        await axios_default({
+          method: "DELETE",
+          url: "/api/v1/users/deleteMe"
+        });
+        showAlert("success", "Account Succesfully Deleted");
+        window.setTimeout(() => {
+          location.assign("/");
+        }, 1500);
+      } catch (err) {
+        showAlert("error", err.response.data.message);
+      }
+    }
+    if (input !== "DELETE") {
+      showAlert("error", 'Please make sure "DELETE" is spelled correctly!');
+    }
+  };
+
   // public/js/index.js
   var characterPage = document.querySelector(".character__page");
-  var homePage = document.querySelector(".home__page");
   var uploadSavestatePage = document.querySelector(".upload__savestate__page");
   var userDataForm = document.querySelector(".user__data__form");
   var updatePasswordForm = document.querySelector(".update__password__form");
   var loginForm = document.getElementById("login__form");
   var signupForm = document.getElementById("signup__form");
-  var nextButton = document.querySelector(".page__btn__next");
-  var prevButton = document.querySelector(".page__btn__prev");
-  var uploadSavestateImg = document.getElementById("upload__savestate");
+  var deleteAccountForm = document.querySelector(".delete__account__form");
   var logOutBtn = document.querySelector(".logout__btn");
   var charactersRemaining = document.getElementById("characters__remaining");
   var savestateDescription = document.getElementById("savestate__title");
-  if (homePage) {
-    uploadSavestateImg.addEventListener("mouseenter", () => {
-      uploadSavestateImg.src = "/img/upload-savestate2.svg";
-    });
-    uploadSavestateImg.addEventListener("mouseleave", () => {
-      uploadSavestateImg.src = "/img/upload-savestate1.svg";
-    });
-  }
   if (characterPage) {
+    const shareButton = document.querySelectorAll(".share__btn");
+    const nextButton = document.querySelector(".page__btn__next");
+    const prevButton = document.querySelector(".page__btn__prev");
+    const protocol = location.protocol + "//" + location.host;
+    const pageCounter = document.querySelector(".page__counter");
     const currentUrlPage = window.location.href.slice(-1);
     const characterToken = document.querySelector(".character__token").dataset.token;
     const savesateAmountToken = Number(
       document.querySelector(".savestate__amount__token").dataset.token
     );
     let savestateRowAmount = document.querySelectorAll("tr.savestate_row").length;
+    pageCounter.textContent = `${currentUrlPage}/${Math.ceil(savesateAmountToken / 20)}`;
     if (savestateRowAmount < 20 || savestateRowAmount * currentUrlPage === savesateAmountToken) {
       nextButton.classList.add("unactive");
     }
@@ -2296,6 +2312,14 @@
     });
     prevButton.addEventListener("click", () => {
       prevButton.href = `/character/${characterToken}/${Number(currentUrlPage) - 1}`;
+    });
+    shareButton.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        navigator.clipboard.writeText(
+          `${protocol}/share-savestate/${btn.dataset.token}`
+        );
+        showAlert("success", "Link added to the clipboard!");
+      });
     });
   }
   if (signupForm) {
@@ -2337,15 +2361,26 @@
       e.preventDefault();
       const form2 = new FormData();
       form2.append("character", document.getElementById("characters").value);
-      form2.append("stage", document.getElementById("stages").value);
+      form2.append(
+        "characterAgainst",
+        document.getElementById("character__against").value
+      );
       form2.append("user", document.querySelector(".user__id").dataset.token);
       form2.append("title", document.getElementById("savestate__title").value);
       form2.append("file", document.getElementById("file").files[0]);
       uploadSavestate(form2);
     });
-    charactersRemaining.textContent = "0 / 20";
+    charactersRemaining.textContent = "0 / 30";
     savestateDescription.addEventListener("input", () => {
-      charactersRemaining.textContent = ` ${savestateDescription.value.length} / 20`;
+      charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+    });
+  }
+  if (deleteAccountForm) {
+    deleteAccountForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const input = document.getElementById("delete__account__input").value;
+      await deleteAccount(input);
+      document.getElementById("delete-account-input").value = "";
     });
   }
 })();

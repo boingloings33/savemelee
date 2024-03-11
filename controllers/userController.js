@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const Savestate = require("../models/savestateModel");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const factory = require("./handlerFactory");
@@ -43,6 +44,12 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     status: "success",
     data: null,
   });
+});
+exports.deleteSavestatesByUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  const savestates = await Savestate.find(req.savestates);
+  console.log(user.id);
+  console.log(savestates);
 });
 exports.createUser = function (req, res) {
   res.status(500).json({

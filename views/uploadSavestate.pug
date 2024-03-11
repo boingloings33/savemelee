@@ -9,15 +9,20 @@ block content
           label.form__label(for='email') Character
           select#characters.select__box(name="characters")
             each character in charactersAlphabetized  
-              option(value=`${character}`) #{character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ')}
+              option(value=`${character}`) #{character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/')}
         div.form__group
-          label.form__label(for='stage') Stage
-          select#stages.select__box(name="characters")
-            each stage in stages
-              option(value=`${stage}`) #{stage[0].toUpperCase() + stage.slice(1).toLowerCase().replaceAll('-', ' ')}
+          label.form__label(for='email') Character Against
+          select#character__against.select__box(name="character__against")
+            each character in charactersAlphabetized  
+              option(value=`${character}`) #{character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/')}
+        //- div.form__group
+        //-   label.form__label(for='stage') Stage
+        //-   select#stages.select__box(name="characters")
+        //-     each stage in stages
+        //-       option(value=`${stage}`) #{stage[0].toUpperCase() + stage.slice(1).toLowerCase().replaceAll('-', ' ')}
         div.form__group
           label.form__label(for='Title') Title
-          input#savestate__title(name="title" maxlength="20" autocomplete="off") 
+          input#savestate__title(name="title" maxlength="30" autocomplete="off") 
           p#characters__remaining test
         div.form__group
           label.form__label(for='password-confirm') Select .gci File
@@ -26,5 +31,5 @@ block content
             required,
           )             
         div.form__group
-          button.btn.login__btn(type='submit') Upload
+          button.btn.btn__yellow(type='submit') Upload
   div.user__id(data-token=`${user.id}`)

@@ -10,6 +10,8 @@ const {
   getSignup,
   getMe,
   getUploadSavestate,
+  getDeleteAccount,
+  getSavestate,
 } = require("../controllers/viewController");
 
 router.get("/", isLoggedIn, getHome);
@@ -18,4 +20,7 @@ router.get("/login", getLogin);
 router.get("/signup", getSignup);
 router.get("/me", protect, isLoggedIn, getMe);
 router.get("/upload-savestate", protect, isLoggedIn, getUploadSavestate);
+router.get("/delete-account", protect, getDeleteAccount);
+router.get("/share-savestate/:id", getSavestate);
+
 module.exports = router;

@@ -2,31 +2,29 @@ import { login, logout } from "./login";
 import { signup } from "./signup";
 import { updateSettings } from "./updateSetting";
 import { uploadSavestate } from "./uploadSavestate";
+import { deleteAccount } from "./deleteAccount";
+import { showAlert } from "./alert";
 
 const characterPage = document.querySelector(".character__page");
-const homePage = document.querySelector(".home__page");
 const uploadSavestatePage = document.querySelector(".upload__savestate__page");
 const userDataForm = document.querySelector(".user__data__form");
 const updatePasswordForm = document.querySelector(".update__password__form");
 const loginForm = document.getElementById("login__form");
 const signupForm = document.getElementById("signup__form");
-const nextButton = document.querySelector(".page__btn__next");
-const prevButton = document.querySelector(".page__btn__prev");
-const uploadSavestateImg = document.getElementById("upload__savestate");
+const deleteAccountForm = document.querySelector(".delete__account__form");
 const logOutBtn = document.querySelector(".logout__btn");
 const charactersRemaining = document.getElementById("characters__remaining");
 const savestateDescription = document.getElementById("savestate__title");
 
-if (homePage) {
-  uploadSavestateImg.addEventListener("mouseenter", () => {
-    uploadSavestateImg.src = "/img/upload-savestate2.svg";
-  });
-  uploadSavestateImg.addEventListener("mouseleave", () => {
-    uploadSavestateImg.src = "/img/upload-savestate1.svg";
-  });
-}
-
 if (characterPage) {
+  // const reportButton = document.querySelectorAll(".report__btn");
+  // const reportDialog = document.querySelector(".report__dialog");
+  // const reportForm = document.querySelector(".report__form");
+  const shareButton = document.querySelectorAll(".share__btn");
+  const nextButton = document.querySelector(".page__btn__next");
+  const prevButton = document.querySelector(".page__btn__prev");
+  const protocol = location.protocol + "//" + location.host;
+  const pageCounter = document.querySelector(".page__counter");
   const currentUrlPage = window.location.href.slice(-1);
   const characterToken =
     document.querySelector(".character__token").dataset.token;
@@ -34,6 +32,8 @@ if (characterPage) {
     document.querySelector(".savestate__amount__token").dataset.token
   );
   let savestateRowAmount = document.querySelectorAll("tr.savestate_row").length;
+
+  pageCounter.textContent = `${currentUrlPage}/${Math.ceil(savesateAmountToken / 20)}`;
 
   if (
     savestateRowAmount < 20 ||
@@ -51,10 +51,36 @@ if (characterPage) {
   prevButton.addEventListener("click", () => {
     prevButton.href = `/character/${characterToken}/${Number(currentUrlPage) - 1}`;
   });
+  shareButton.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      navigator.clipboard.writeText(
+        `${protocol}/share-savestate/${btn.dataset.token}`
+      );
+      showAlert("success", "Link added to the clipboard!");
+    });
+  });
+  // reportButton.forEach((btn) => {
+  //   btn.addEventListener("click", () => {
+  //     reportDialog.showModal();
+  //     reportForm.addEventListener("submit", (e) => {
+  //       e.preventDefault();
+  //       const selectedValue = reportForm.querySelector(
+  //         'input[type="radio"]:checked'
+  //       ).value;
+  //       console.log(selectedValue);
+  //       console.log(btn.dataset.token);
+  //       reportDialog.close();
+  //       showAlert("success", "Report Submitted!");
+  //       window.setTimeout(() => {
+  //         location.assign(`${protocol}/character/${characterToken}/1`);
+  //       }, 1500);
+  //     });
+  //     reportForm.addEventListener("close", () => {
+  //       console.log("closed");
+  //     });
+  //   });
+  // });
 }
-
-// if (accountPage) {
-// }
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -99,15 +125,28 @@ if (uploadSavestatePage) {
     e.preventDefault();
     const form = new FormData();
     form.append("character", document.getElementById("characters").value);
-    form.append("stage", document.getElementById("stages").value);
+    form.append(
+      "characterAgainst",
+      document.getElementById("character__against").value
+    );
     form.append("user", document.querySelector(".user__id").dataset.token);
     form.append("title", document.getElementById("savestate__title").value);
     form.append("file", document.getElementById("file").files[0]);
     uploadSavestate(form);
   });
 
-  charactersRemaining.textContent = "0 / 20";
+  charactersRemaining.textContent = "0 / 30";
   savestateDescription.addEventListener("input", () => {
-    charactersRemaining.textContent = ` ${savestateDescription.value.length} / 20`;
+    charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+  });
+}
+
+if (deleteAccountForm) {
+  deleteAccountForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const input = document.getElementById("delete__account__input").value;
+
+    await deleteAccount(input);
+    document.getElementById("delete-account-input").value = "";
   });
 }
