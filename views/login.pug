@@ -1,28 +1,28 @@
 extends base
 
 block content
-  section.margin__borders#login__form
-    div.form__section
+  section#login__form.margin__borders
+    .form__section
       h2.heading__secondary Log in to your account
       form.form
-        div.form__group
-          label.form__label(for='email') Email address
+        .form__group
+          label.form__label(for="email") Email address
           input#email.form__input(
-            type='email',
-            placeholder='you@example.com',
+            type="email",
+            placeholder="you@example.com",
             required,
-            autocomplete='off'
+            autocomplete="off"
           )
-        div.form__group
-          label.form__label(for='password') Password
+        .form__group
+          label.form__label(for="password") Password
           input#password.form__input(
-            type='password',
-            placeholder='••••••••',
+            type="password",
+            placeholder="••••••••",
             required,
-            minlength='8',
-            autocomplete='new-password'
+            minlength="8",
+            autocomplete="new-password"
           )
-        div.form__group
+        .form__group
           span.login__btn__group
-           button.btn.btn__yellow(type='submit') Log in
+            button.btn.btn__yellow(type="submit") Log in
           //-  a.btn.btn__red(href= "/forgotPassword") Forgot Password? 

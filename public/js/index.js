@@ -117,27 +117,54 @@ if (userDataForm) {
 }
 if (updatePasswordForm) {
 }
-
 if (uploadSavestatePage) {
-  const form = document.querySelector(".form");
+  const savestateForm = document.querySelector(".form");
+  const files = document.getElementById("file");
+  const title = document.getElementById("savestate__title");
+  const removeFiles = document.querySelector(".remove__files");
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const form = new FormData();
-    form.append("character", document.getElementById("characters").value);
-    form.append(
-      "characterAgainst",
-      document.getElementById("character__against").value
-    );
-    form.append("user", document.querySelector(".user__id").dataset.token);
-    form.append("title", document.getElementById("savestate__title").value);
-    form.append("file", document.getElementById("file").files[0]);
-    uploadSavestate(form);
+  files.addEventListener("change", () => {
+    if (files.files.length > 0) {
+      removeFiles.classList.remove("hidden");
+    }
+    if (files.files.length > 1) {
+      title.value = "";
+      title.disabled = true;
+      charactersRemaining.textContent = "0 / 30";
+      charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+    }
   });
+  savestateForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
+    Array.from(files.files).forEach((file, i) => {
+      const form = new FormData();
+      form.append("character", document.getElementById("characters").value);
+      form.append(
+        "characterAgainst",
+        document.getElementById("character__against").value
+      );
+
+      form.append("user", document.querySelector(".user__id").dataset.token);
+      if (files.files.length === 1) {
+        form.append("title", title.value);
+      }
+      if (files.files.length > 1) {
+        form.append("title", file.name);
+      }
+
+      form.append("file", file);
+      uploadSavestate(form);
+    });
+  });
   charactersRemaining.textContent = "0 / 30";
   savestateDescription.addEventListener("input", () => {
     charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+  });
+  removeFiles.addEventListener("click", () => {
+    files.value = "";
+    title.disabled = false;
+    removeFiles.classList.add("hidden");
   });
 }
 

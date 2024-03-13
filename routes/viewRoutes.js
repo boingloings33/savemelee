@@ -12,6 +12,7 @@ const {
   getUploadSavestate,
   getDeleteAccount,
   getSavestate,
+  getSavestatesByUser,
 } = require("../controllers/viewController");
 
 router.get("/", isLoggedIn, getHome);
@@ -22,5 +23,6 @@ router.get("/me", protect, isLoggedIn, getMe);
 router.get("/upload-savestate", protect, isLoggedIn, getUploadSavestate);
 router.get("/delete-account", protect, getDeleteAccount);
 router.get("/share-savestate/:id", getSavestate);
+router.get("/user-savestates/:id", protect, isLoggedIn, getSavestatesByUser);
 
 module.exports = router;

@@ -2,34 +2,45 @@ extends base
 
 block content
   section.margin__borders.upload__savestate__page
-    div.form__section
-      h2.heading__secondary Upload Savestate
+    .form__section
+      h2.heading__secondary Upload Savestate(s)
       form.form(enctype="multipart/form-data")
-        div.form__group
-          label.form__label(for='email') Character
-          select#characters.select__box(name="characters")
+        .form__group
+          label.form__label Character As
+          select#characters.select__box(name="characters", autocomplete="off")
             each character in charactersAlphabetized  
-              option(value=`${character}`) #{character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/')}
-        div.form__group
-          label.form__label(for='email') Character Against
-          select#character__against.select__box(name="character__against")
+              option(value=`${character}`) #{ character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
+        .form__group
+          label.form__label Character Against
+          select#character__against.select__box(
+            name="character__against",
+            autocomplete="off"
+          )
             each character in charactersAlphabetized  
-              option(value=`${character}`) #{character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/')}
+              option(value=`${character}`) #{ character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
         //- div.form__group
         //-   label.form__label(for='stage') Stage
         //-   select#stages.select__box(name="characters")
         //-     each stage in stages
         //-       option(value=`${stage}`) #{stage[0].toUpperCase() + stage.slice(1).toLowerCase().replaceAll('-', ' ')}
-        div.form__group
-          label.form__label(for='Title') Title
-          input#savestate__title(name="title" maxlength="30" autocomplete="off") 
+        .form__group
+          label.form__label(for="Title") Title
+          input#savestate__title(
+            name="title",
+            maxlength="30",
+            autocomplete="off"
+          ) 
           p#characters__remaining test
-        div.form__group
-          label.form__label(for='password-confirm') Select .gci File
+        .form__group
+          label.form__label(for="password-confirm") Select .gci File
           input#file.form__input(
-            type='file',
+            type="file",
             required,
-          )             
-        div.form__group
-          button.btn.btn__yellow(type='submit') Upload
-  div.user__id(data-token=`${user.id}`)
+            multiple="multiple",
+            autocomplete="off"
+          ) 
+          p.remove__files.hidden X
+
+        .form__group
+          button.btn.btn__yellow(type="submit") Upload
+  .user__id(data-token=`${user.id}`)

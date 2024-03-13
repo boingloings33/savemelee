@@ -2,7 +2,6 @@ import axios from "axios";
 import { showAlert } from "./alert";
 
 export const uploadSavestate = async (formData) => {
-  console.log(formData);
   try {
     const res = await axios({
       method: "POST",

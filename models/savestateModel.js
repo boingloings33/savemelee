@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validateFile = require("../utils/validateFile");
 const savestateSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -101,8 +102,12 @@ const savestateSchema = new mongoose.Schema({
         if (!value.endsWith(".gci")) {
           return false;
         }
+        if (validateFile(value) === false) {
+          return false;
+        }
       },
-      message: (props) => `${props.value} doesn't end with .gci extension!`,
+      message: (props) =>
+        `File includes invalid characters (such as % \ :/ * ? " < > |) or doesn't end in .gci`,
     },
   },
   user: {

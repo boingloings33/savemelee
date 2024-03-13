@@ -35,6 +35,10 @@ img {
   background-color: transparent;
 }
 
+.hidden {
+  display: none;
+}
+
 .btn,
 .btn:link,
 .btn:visited {
@@ -224,6 +228,21 @@ img {
   align-self: center;
 }
 
+.remove__files {
+  color: white;
+  background-color: var(--gamecube-color);
+  padding: 0px 8px 0px 8px;
+  border-radius: 100px;
+  position: absolute;
+  right: 0;
+  bottom: 11px;
+  right: 2%;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+}
+.form__group {
+  position: relative;
+}
 /* CHARACTER PAGE */
 
 .character__page {
@@ -296,8 +315,6 @@ tbody > tr:nth-of-type(even) {
 }
 
 /* Character Page Dialog */
-.report__form {
-}
 
 /* LOG IN FORM */
 .form__section {
@@ -492,6 +509,10 @@ tbody > tr:nth-of-type(even) {
   width: 30rem;
 }
 
+.edit__savestates {
+  background-color: var(--white-alt);
+  color: var(--charcoal);
+}
 /* DELETE ACCOUNT */
 .delete__account__form {
   display: flex;

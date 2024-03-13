@@ -1,0 +1,21 @@
+extends base
+
+block content
+  section.margin__borders
+    table.savestate__table
+      thead
+        tr.savestate__row
+          th(scope="col") Character As
+          th(scope="col") Character Against
+          th(scope="col") Title
+          th(scope="col") File
+
+      tbody
+        each savestate in userSavestates
+          tr.savestate_row
+            td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
+            td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
+            td.savestate__item #{ savestate.title }
+            td.savestate__item
+              a(href=`/gci/${savestate.file}`, download) Download
+ 

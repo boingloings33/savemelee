@@ -2238,7 +2238,6 @@
 
   // public/js/uploadSavestate.js
   var uploadSavestate = async (formData) => {
-    console.log(formData);
     try {
       const res = await axios_default({
         method: "POST",
@@ -2356,23 +2355,49 @@
   if (updatePasswordForm) {
   }
   if (uploadSavestatePage) {
-    const form = document.querySelector(".form");
-    form.addEventListener("submit", (e) => {
+    const savestateForm = document.querySelector(".form");
+    const files = document.getElementById("file");
+    const title = document.getElementById("savestate__title");
+    const removeFiles = document.querySelector(".remove__files");
+    files.addEventListener("change", () => {
+      if (files.files.length > 0) {
+        removeFiles.classList.remove("hidden");
+      }
+      if (files.files.length > 1) {
+        title.value = "";
+        title.disabled = true;
+        charactersRemaining.textContent = "0 / 30";
+        charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+      }
+    });
+    savestateForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const form2 = new FormData();
-      form2.append("character", document.getElementById("characters").value);
-      form2.append(
-        "characterAgainst",
-        document.getElementById("character__against").value
-      );
-      form2.append("user", document.querySelector(".user__id").dataset.token);
-      form2.append("title", document.getElementById("savestate__title").value);
-      form2.append("file", document.getElementById("file").files[0]);
-      uploadSavestate(form2);
+      Array.from(files.files).forEach((file, i) => {
+        const form = new FormData();
+        form.append("character", document.getElementById("characters").value);
+        form.append(
+          "characterAgainst",
+          document.getElementById("character__against").value
+        );
+        form.append("user", document.querySelector(".user__id").dataset.token);
+        if (files.files.length === 1) {
+          form.append("title", title.value);
+        }
+        if (files.files.length > 1) {
+          form.append("title", file.name);
+        }
+        form.append("file", file);
+        uploadSavestate(form);
+      });
     });
     charactersRemaining.textContent = "0 / 30";
     savestateDescription.addEventListener("input", () => {
       charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+    });
+    removeFiles.addEventListener("click", () => {
+      files.value = "";
+      title.disabled = false;
+      removeFiles.classList.add("hidden");
     });
   }
   if (deleteAccountForm) {

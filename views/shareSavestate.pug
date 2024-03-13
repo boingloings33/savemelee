@@ -2,6 +2,6 @@ extends base
 
 block content
   section.margin__borders.share__savestate__page
-    div.share__box
-      h1.heading__secondary #{userSavestate.user.username}'s Savestate: #{userSavestate.title}
-      a.btn.upload__btn(href=`/gci/${userSavestate.file}` download) Download
+    .share__box
+      h1.heading__secondary #{ userSavestate.user.username }'s Savestate: #{ userSavestate.title }
+      a.btn.upload__btn(href=`/gci/${userSavestate.file}`, download) Download

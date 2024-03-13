@@ -1,57 +1,58 @@
 extends base
 
 block content
-  div.margin__borders#account__page
-      div.account__form__section.user__data__form
-        h2.heading__secondary Account Settings
+  #account__page.margin__borders
+    .account__form__section.user__data__form
+      h2.heading__secondary Account Settings
+      form.form.form__user__data
+        .form__group
+          label.form__label(for="name") Username
+          input#name.form__input(
+            type="text",
+            value=`${user.username}`,
+            required
+          )
+        .form__group
+          label.form__label(for="email") Email address
+          input#email.form__input(
+            type="email",
+            value=`${user.email}`,
+            required
+          )
+        .form__group
+          button.btn.btn__yellow Save settings
+          a.btn.edit__savestates(href=`/user-savestates/${user.id}`) View/Edit my savestates
+      .line &nbsp;
+      .update__password__form
+        h2.heading__secondary Update Password
         form.form.form__user__data
-          div.form__group
-            label.form__label(for='name') Username
-            input#name.form__input(
-              type='text',
-              value=`${user.username}`,
-              required
+          .form__group
+            label.form__label(for="password-current") Current password
+            input#password-current.form__input(
+              type="password",
+              placeholder="••••••••",
+              required,
+              minlength="8",
+              autocomplete="new-password"
             )
-          div.form__group
-            label.form__label(for='email') Email address
-            input#email.form__input(
-              type='email',
-              value=`${user.email}`,
-              required
+          .form__group
+            label.form__label(for="password") New password
+            input#password.form__input(
+              type="password",
+              placeholder="••••••••",
+              required,
+              minlength="8",
+              autocomplete="new-password"
             )
-          div.form__group  
-            button.btn.btn__yellow Save settings
-        .line &nbsp;
-        div.update__password__form
-          h2.heading__secondary Update Password
-          form.form.form__user__data
-            .form__group
-              label.form__label(for='password-current') Current password
-              input#password-current.form__input(
-                type='password',
-                placeholder='••••••••',
-                required,
-                minlength='8',
-                autocomplete='new-password'
-              )
-            .form__group
-              label.form__label(for='password') New password
-              input#password.form__input(
-                type='password',
-                placeholder='••••••••',
-                required,
-                minlength='8',
-                autocomplete='new-password'
-              )
-            .form__group
-              label.form__label(for='password-confirm') Confirm password
-              input#password-confirm.form__input(
-                type='password',
-                placeholder='••••••••',
-                required,
-                minlength='8',
-                autocomplete='new-password'
-              )
-            .form__group
-              button.btn.btn__yellow Save password
-              a.btn.btn__red(href="/delete-account") Delete Account
+          .form__group
+            label.form__label(for="password-confirm") Confirm password
+            input#password-confirm.form__input(
+              type="password",
+              placeholder="••••••••",
+              required,
+              minlength="8",
+              autocomplete="new-password"
+            )
+          .form__group
+            button.btn.btn__yellow Save password
+            a.btn.btn__red(href="/delete-account") Delete Account

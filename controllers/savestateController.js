@@ -47,13 +47,20 @@ exports.createSavestate = catchAsync(async (req, res) => {
     data: { data: newSavestate },
   });
 });
-
 exports.getAllSavestates = factory.getAll(Savestate);
 exports.getSavestate = factory.getOne(Savestate);
 exports.updateSavestate = factory.updateOne(Savestate);
 
 exports.deleteSavestate = factory.deleteOne(Savestate);
 
+exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
+  const savestates = await Savestate.find({ user: { _id: req.params.id } });
+  res.status(200).json({
+    status: "success",
+    results: savestates.length,
+    savestates,
+  });
+});
 exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
   const characters = Savestate.schema.path("character").enumValues;
   if (!characters.includes(req.params.character)) {

@@ -1,45 +1,44 @@
 extends base
 
 block content
-  section.margin__borders#signup__form
-    div.form__section
+  section#signup__form.margin__borders
+    .form__section
       h2.heading__secondary Sign up for an account
       form.form
-        div.form__group
-          label.form__label(for='email') Email address
+        .form__group
+          label.form__label(for="email") Email address
           input#email.form__input(
-            type='email',
-            placeholder='you@example.com',
+            type="email",
+            placeholder="you@example.com",
             required,
-            autocomplete='off'
+            autocomplete="off"
           )
-        div.form__group
-          label.form__label(for='username') Username
+        .form__group
+          label.form__label(for="username") Username
           input#username.form__input(
-            type='text',
-            placeholder='Mango1234',
+            type="text",
+            placeholder="Mango1234",
             required,
-            autocomplete='off'
+            autocomplete="off"
           )
-        div.form__group
-          label.form__label(for='password') Password
+        .form__group
+          label.form__label(for="password") Password
           input#password.form__input(
-            type='password',
-            placeholder='••••••••',
+            type="password",
+            placeholder="••••••••",
             required,
-            minlength='8',
-            autocomplete='new-password'
+            minlength="8",
+            autocomplete="new-password"
           )
-        div.form__group
-          label.form__label(for='password-confirm') Confirm Password
+        .form__group
+          label.form__label(for="password-confirm") Confirm Password
           input#password__confirm.form__input(
-            type='password',
-            placeholder='••••••••',
+            type="password",
+            placeholder="••••••••",
             required,
-            minlength='8',
-            autocomplete='new-password'
+            minlength="8",
+            autocomplete="new-password"
           )
-          
-        div.form__group
-          button.btn.btn__yellow(type='submit') Signup
-  
+
+        .form__group
+          button.btn.btn__yellow(type="submit") Signup

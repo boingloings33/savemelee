@@ -48,8 +48,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 exports.deleteSavestatesByUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
   const savestates = await Savestate.find(req.savestates);
-  console.log(user.id);
-  console.log(savestates);
 });
 exports.createUser = function (req, res) {
   res.status(500).json({

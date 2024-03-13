@@ -84,3 +84,16 @@ exports.getSavestate = catchAsync(async (req, res, next) => {
     userSavestate,
   });
 });
+exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
+  const result = await axios({
+    method: "GET",
+    url: `${req.protocol}://${req.get("host")}/api/v1/savestates/user/${req.params.id}`,
+  });
+
+  const userSavestates = result.data.savestates;
+
+  res.status(200).render("getSavestatesByUser", {
+    title: "Your Savestates",
+    userSavestates,
+  });
+});

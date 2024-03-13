@@ -6,17 +6,16 @@ block content
     .character__select
       each character in characters
         a.character__box(href=`/character/${character}/1`)
-          img(src=`/img/character-icons/${character}.png`, alt="character-image" )
+          img(
+            src=`/img/character-icons/${character}.png`,
+            alt="character-image"
+          )
     if (user)
       h1.home__title or
-      a.savestate__wrapper.upload__btn(href="/upload-savestate") Upload Savestate
+      a.savestate__wrapper.upload__btn(href="/upload-savestate") Upload Savestates
     if (!user)
-      h1.home__subtitle (or log in to upload a savestate...)      
-       
-  
-         
+      h1.home__subtitle (or log in to upload a savestate...)
 
     //- h1 savestates      
     //- ul.savestates
     //-   li.savestate test  
-    
