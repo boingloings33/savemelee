@@ -33,6 +33,13 @@ const upload = multer({
 });
 
 exports.uploadGCIFile = upload.single("file");
+
+exports.getAllSavestates = factory.getAll(Savestate);
+exports.getSavestate = factory.getOne(Savestate);
+exports.updateSavestate = factory.updateOne(Savestate);
+
+exports.deleteSavestate = factory.deleteOne(Savestate);
+
 exports.createSavestate = catchAsync(async (req, res) => {
   const newSavestate = await Savestate.create({
     character: req.body.character,
@@ -47,12 +54,6 @@ exports.createSavestate = catchAsync(async (req, res) => {
     data: { data: newSavestate },
   });
 });
-exports.getAllSavestates = factory.getAll(Savestate);
-exports.getSavestate = factory.getOne(Savestate);
-exports.updateSavestate = factory.updateOne(Savestate);
-
-exports.deleteSavestate = factory.deleteOne(Savestate);
-
 exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
   const savestates = await Savestate.find({ user: { _id: req.params.id } });
   res.status(200).json({

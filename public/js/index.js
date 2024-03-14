@@ -4,6 +4,7 @@ import { updateSettings } from "./updateSetting";
 import { uploadSavestate } from "./uploadSavestate";
 import { deleteAccount } from "./deleteAccount";
 import { showAlert } from "./alert";
+import { deleteSavestate } from "./deleteSavestate";
 
 const characterPage = document.querySelector(".character__page");
 const uploadSavestatePage = document.querySelector(".upload__savestate__page");
@@ -15,6 +16,9 @@ const deleteAccountForm = document.querySelector(".delete__account__form");
 const logOutBtn = document.querySelector(".logout__btn");
 const charactersRemaining = document.getElementById("characters__remaining");
 const savestateDescription = document.getElementById("savestate__title");
+const savestateByUserPage = document.querySelector(
+  ".savestate__by__user__page"
+);
 
 if (characterPage) {
   // const reportButton = document.querySelectorAll(".report__btn");
@@ -175,5 +179,26 @@ if (deleteAccountForm) {
 
     await deleteAccount(input);
     document.getElementById("delete-account-input").value = "";
+  });
+}
+
+if (savestateByUserPage) {
+  const deleteButton = document.querySelectorAll(".delete__btn");
+  const shareButton = document.querySelectorAll(".share__btn");
+  const userId = document.querySelector(".user__id").dataset.token;
+  const protocol = location.protocol + "//" + location.host;
+  shareButton.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      navigator.clipboard.writeText(
+        `${protocol}/share-savestate/${btn.dataset.token}`
+      );
+      showAlert("success", "Link added to the clipboard!");
+    });
+  });
+
+  deleteButton.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      deleteSavestate(btn.dataset.token, userId);
+    });
   });
 }

@@ -2276,6 +2276,24 @@
     }
   };
 
+  // public/js/deleteSavestate.js
+  var deleteSavestate = async (savesataeId, userId) => {
+    {
+      try {
+        await axios_default({
+          method: "DELETE",
+          url: `/api/v1/savestates/${savesataeId}`
+        });
+        showAlert("success", "Savestate Succesfully Deleted");
+        window.setTimeout(() => {
+          location.assign(`/user-savestates/${userId}`);
+        }, 1500);
+      } catch (err) {
+        showAlert("error", err.response.data.message);
+      }
+    }
+  };
+
   // public/js/index.js
   var characterPage = document.querySelector(".character__page");
   var uploadSavestatePage = document.querySelector(".upload__savestate__page");
@@ -2287,6 +2305,9 @@
   var logOutBtn = document.querySelector(".logout__btn");
   var charactersRemaining = document.getElementById("characters__remaining");
   var savestateDescription = document.getElementById("savestate__title");
+  var savestateByUserPage = document.querySelector(
+    ".savestate__by__user__page"
+  );
   if (characterPage) {
     const shareButton = document.querySelectorAll(".share__btn");
     const nextButton = document.querySelector(".page__btn__next");
@@ -2406,6 +2427,25 @@
       const input = document.getElementById("delete__account__input").value;
       await deleteAccount(input);
       document.getElementById("delete-account-input").value = "";
+    });
+  }
+  if (savestateByUserPage) {
+    const deleteButton = document.querySelectorAll(".delete__btn");
+    const shareButton = document.querySelectorAll(".share__btn");
+    const userId = document.querySelector(".user__id").dataset.token;
+    const protocol = location.protocol + "//" + location.host;
+    shareButton.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        navigator.clipboard.writeText(
+          `${protocol}/share-savestate/${btn.dataset.token}`
+        );
+        showAlert("success", "Link added to the clipboard!");
+      });
+    });
+    deleteButton.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        deleteSavestate(btn.dataset.token, userId);
+      });
     });
   }
 })();

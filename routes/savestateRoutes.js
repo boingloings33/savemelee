@@ -10,6 +10,7 @@ const {
   getCharacterSavestates,
   uploadGCIFile,
   getSavestatesByUser,
+  deleteSavestatesByUser,
 } = require("../controllers/savestateController");
 const { protect, restrictTo } = require("../controllers/authController");
 
@@ -23,6 +24,7 @@ router
   .get(getSavestate)
   .patch(protect, updateSavestate)
   .delete(protect, deleteSavestate);
-router.route("/user/:id").get(getSavestatesByUser);
 router.route("/character/:character").get(getCharacterSavestates);
+router.route("/user/:id").get(getSavestatesByUser);
+
 module.exports = router;

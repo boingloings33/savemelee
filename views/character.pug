@@ -31,7 +31,7 @@ block content
             th(scope="col") Title
             //- th(scope="col") Stage
             th(scope="col") File
-            th(scope="col") Uploaded By
+      
 
         tbody
           each savestate in characterSavestate
@@ -61,4 +61,6 @@ block content
     .savestate__amount__token(data-token=`${savestateAmount}`)
   if (characterSavestate.length === 0)
     section.margin__borders.character__page
+      h1.home__title No Savestates for this character yet :(
+e
       h1.home__title No Savestates for this character yet :(

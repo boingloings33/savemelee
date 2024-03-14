@@ -30,10 +30,10 @@ const sendErrorDev = (err, req, res) => {
       stack: err.stack,
     });
   }
-  // res.status(err.statusCode).render("error", {
-  //   title: "Something went wrong",
-  //   message: err.message,
-  // });
+  res.status(err.statusCode).render("error", {
+    title: "Something went wrong",
+    message: err.message,
+  });
 };
 
 const sendErrorProd = (err, req, res) => {
@@ -57,17 +57,17 @@ const sendErrorProd = (err, req, res) => {
   }
 
   // B) RENDERED WEBSITE
-  // if (err.isOperational) {
-  //   return res.status(err.statusCode).render("error", {
-  //     title: "Something went wrong!",
-  //     message: err.message,
-  //   });
-  // }
-  // console.error("ERROR 💥", err);
-  // return res.status(err.statusCode).render("error", {
-  //   title: "Something went wrong!",
-  //   message: "Please try again later.",
-  // });
+  if (err.isOperational) {
+    return res.status(err.statusCode).render("error", {
+      title: "Something went wrong!",
+      message: err.message,
+    });
+  }
+  console.error("ERROR 💥", err);
+  return res.status(err.statusCode).render("error", {
+    title: "Something went wrong!",
+    message: "Please try again later.",
+  });
 };
 
 module.exports = (err, req, res, next) => {

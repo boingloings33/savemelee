@@ -64,7 +64,6 @@ img {
   position: fixed;
   top: 0;
   left: 50%;
-  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   z-index: 9999;
   color: #fff;
@@ -75,6 +74,7 @@ img {
   border-bottom-right-radius: 5px;
   padding: 1.6rem 15rem;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.288);
+  white-space: nowrap;
 }
 
 .alert__success {
@@ -294,11 +294,12 @@ tbody > tr:nth-of-type(even) {
 .icon {
   width: 20px;
   margin-top: 6px;
-}
-
-.share__btn {
+  fill: var(--gamecube-color);
   cursor: pointer;
   fill: var(--gamecube-color);
+}
+
+.icon:last-child {
   margin-left: 0.25rem;
 }
 
@@ -527,4 +528,37 @@ tbody > tr:nth-of-type(even) {
   margin-top: 2rem;
   color: white;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.288);
+}
+
+/* Errors */
+.error {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100rem;
+  text-align: center;
+}
+.error__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.error__emoji {
+  font-size: 3.75rem;
+  margin-left: 1rem;
+}
+.error__msg {
+  font-size: 2.5rem;
+  font-weight: 700;
+  max-width: 50rem;
+  margin: 0 auto;
 }
