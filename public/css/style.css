@@ -346,6 +346,9 @@ tbody > tr:nth-of-type(even) {
   height: 28px;
   overflow: hidden;
 }
+.no__character {
+  margin-top: 4rem;
+}
 
 /* Character Page Dialog */
 
