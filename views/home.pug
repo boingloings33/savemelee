@@ -6,7 +6,7 @@ block content
     .character__select
       each character in characters
         a.character__box(href=`/character/${character}/1`)
-          img(
+          img.character__icon(
             src=`/img/character-icons/${character}.png`,
             alt="character-image"
           )

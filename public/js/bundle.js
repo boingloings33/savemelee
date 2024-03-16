@@ -2256,12 +2256,12 @@
   };
 
   // public/js/deleteAccount.js
-  var deleteAccount = async (input) => {
+  var deleteAccount = async (input, userId) => {
     if (input === "DELETE") {
       try {
         await axios_default({
           method: "DELETE",
-          url: "/api/v1/users/deleteMe"
+          url: `/api/v1/users/deleteMe/${userId}`
         });
         showAlert("success", "Account Succesfully Deleted");
         window.setTimeout(() => {
@@ -2294,7 +2294,30 @@
     }
   };
 
+  // public/js/emailReport.js
+  var emailReport = async (savestateId, reportValue, character) => {
+    try {
+      const res = await axios_default({
+        method: "POST",
+        url: "https://formspree.io/f/mayrbbew",
+        data: {
+          savestateId,
+          reportValue
+        }
+      });
+      if (res.status === 200) {
+        showAlert("success", "Report Submitted!");
+        window.setTimeout(() => {
+          location.assign(`/character/${character}/1`);
+        }, 1500);
+      }
+    } catch (err) {
+      showAlert("error", err);
+    }
+  };
+
   // public/js/index.js
+  var reportBug = document.querySelector(".report__bug");
   var characterPage = document.querySelector(".character__page");
   var uploadSavestatePage = document.querySelector(".upload__savestate__page");
   var userDataForm = document.querySelector(".user__data__form");
@@ -2309,6 +2332,11 @@
     ".savestate__by__user__page"
   );
   if (characterPage) {
+    let reportedSavestate = "";
+    const reportButton = document.querySelectorAll(".report__btn");
+    const reportDialog = document.querySelector(".report__dialog");
+    const reportForm = document.querySelector(".report__form");
+    const closeIcon = document.querySelector(".close__icon");
     const shareButton = document.querySelectorAll(".share__btn");
     const nextButton = document.querySelector(".page__btn__next");
     const prevButton = document.querySelector(".page__btn__prev");
@@ -2341,16 +2369,28 @@
         showAlert("success", "Link added to the clipboard!");
       });
     });
+    reportButton.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        reportDialog.showModal();
+        reportForm.reset();
+        reportDialog.returnValue = "none";
+        reportedSavestate = btn.dataset.token;
+      });
+    });
+    reportForm.addEventListener("submit", () => {
+      emailReport(reportedSavestate, reportForm.report.value, characterToken);
+    });
+    closeIcon.addEventListener("click", () => {
+      reportDialog.close();
+    });
   }
   if (signupForm) {
     signupForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log("test");
       const email = document.getElementById("email").value;
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
       const passwordConfirm = document.getElementById("password__confirm").value;
-      console.log(email);
       signup(email, username, password, passwordConfirm);
     });
   }
@@ -2425,7 +2465,8 @@
     deleteAccountForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const input = document.getElementById("delete__account__input").value;
-      await deleteAccount(input);
+      const userId = document.querySelector(".delete__account__form").dataset.token;
+      await deleteAccount(input, userId);
       document.getElementById("delete-account-input").value = "";
     });
   }
@@ -2448,4 +2489,8 @@
       });
     });
   }
+  reportBug.addEventListener("click", () => {
+    navigator.clipboard.writeText(`savemeleegg@gmail.com`);
+    showAlert("success", "Email Link added to the clipboard!");
+  });
 })();

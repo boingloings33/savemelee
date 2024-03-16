@@ -5,7 +5,9 @@ import { uploadSavestate } from "./uploadSavestate";
 import { deleteAccount } from "./deleteAccount";
 import { showAlert } from "./alert";
 import { deleteSavestate } from "./deleteSavestate";
+import { emailReport } from "./emailReport";
 
+const reportBug = document.querySelector(".report__bug");
 const characterPage = document.querySelector(".character__page");
 const uploadSavestatePage = document.querySelector(".upload__savestate__page");
 const userDataForm = document.querySelector(".user__data__form");
@@ -21,9 +23,11 @@ const savestateByUserPage = document.querySelector(
 );
 
 if (characterPage) {
-  // const reportButton = document.querySelectorAll(".report__btn");
-  // const reportDialog = document.querySelector(".report__dialog");
-  // const reportForm = document.querySelector(".report__form");
+  let reportedSavestate = "";
+  const reportButton = document.querySelectorAll(".report__btn");
+  const reportDialog = document.querySelector(".report__dialog");
+  const reportForm = document.querySelector(".report__form");
+  const closeIcon = document.querySelector(".close__icon");
   const shareButton = document.querySelectorAll(".share__btn");
   const nextButton = document.querySelector(".page__btn__next");
   const prevButton = document.querySelector(".page__btn__prev");
@@ -63,38 +67,29 @@ if (characterPage) {
       showAlert("success", "Link added to the clipboard!");
     });
   });
-  // reportButton.forEach((btn) => {
-  //   btn.addEventListener("click", () => {
-  //     reportDialog.showModal();
-  //     reportForm.addEventListener("submit", (e) => {
-  //       e.preventDefault();
-  //       const selectedValue = reportForm.querySelector(
-  //         'input[type="radio"]:checked'
-  //       ).value;
-  //       console.log(selectedValue);
-  //       console.log(btn.dataset.token);
-  //       reportDialog.close();
-  //       showAlert("success", "Report Submitted!");
-  //       window.setTimeout(() => {
-  //         location.assign(`${protocol}/character/${characterToken}/1`);
-  //       }, 1500);
-  //     });
-  //     reportForm.addEventListener("close", () => {
-  //       console.log("closed");
-  //     });
-  //   });
-  // });
+  reportButton.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      reportDialog.showModal();
+      reportForm.reset();
+      reportDialog.returnValue = "none";
+      reportedSavestate = btn.dataset.token;
+    });
+  });
+  reportForm.addEventListener("submit", () => {
+    emailReport(reportedSavestate, reportForm.report.value, characterToken);
+  });
+  closeIcon.addEventListener("click", () => {
+    reportDialog.close();
+  });
 }
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log("test");
     const email = document.getElementById("email").value;
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const passwordConfirm = document.getElementById("password__confirm").value;
-    console.log(email);
     signup(email, username, password, passwordConfirm);
   });
 }
@@ -176,8 +171,10 @@ if (deleteAccountForm) {
   deleteAccountForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const input = document.getElementById("delete__account__input").value;
+    const userId = document.querySelector(".delete__account__form").dataset
+      .token;
 
-    await deleteAccount(input);
+    await deleteAccount(input, userId);
     document.getElementById("delete-account-input").value = "";
   });
 }
@@ -202,3 +199,8 @@ if (savestateByUserPage) {
     });
   });
 }
+
+reportBug.addEventListener("click", () => {
+  navigator.clipboard.writeText(`savemeleegg@gmail.com`);
+  showAlert("success", "Email Link added to the clipboard!");
+});

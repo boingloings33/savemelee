@@ -2,7 +2,7 @@ extends base
 
 block content
   section.margin__borders
-    .delete__account__form
+    .delete__account__form(data-token=`${user.id}`)
       h2.heading__secondary Delete Your Account
       form.form
         label.form__label(for="text") Please type "DELETE" to confirm
@@ -13,3 +13,4 @@ block content
           autocomplete="off"
         )
         button.btn.btn__red(type="submit") Delete Account
+

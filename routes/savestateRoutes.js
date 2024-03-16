@@ -10,7 +10,7 @@ const {
   getCharacterSavestates,
   uploadGCIFile,
   getSavestatesByUser,
-  deleteSavestatesByUser,
+  deleteAllSavestatesByUser,
 } = require("../controllers/savestateController");
 const { protect, restrictTo } = require("../controllers/authController");
 

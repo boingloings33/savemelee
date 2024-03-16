@@ -18,7 +18,7 @@ const {
   getMe,
   getAllUsers,
   updateUser,
-  deleteSavestatesByUser,
+  deleteAllSavestatesByUser,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -34,7 +34,7 @@ router.use(protect);
 router.patch("/updateMyPassword", updatePassword);
 router.get("/me", getMe, getUser);
 router.patch("/updateMe", updateMe);
-router.delete("/deleteMe", deleteMe);
+router.delete("/deleteMe/:id", deleteAllSavestatesByUser, deleteMe);
 
 router.use(restrictTo("admin"));
 

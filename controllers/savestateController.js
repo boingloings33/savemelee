@@ -62,6 +62,7 @@ exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
     savestates,
   });
 });
+
 exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
   const characters = Savestate.schema.path("character").enumValues;
   if (!characters.includes(req.params.character)) {

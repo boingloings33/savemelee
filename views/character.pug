@@ -3,25 +3,27 @@ extends base
 block content
   if (characterSavestate.length > 0)
     section.margin__borders.character__page
-      //- dialog.report__dialog
-        p Report a savestate
-        form.report__form(method='POST' action="https://formspree.io/f/mayrbbew")
+      dialog.report__dialog
+        svg.close__icon
+          use(xlink:href=`/img/icons.svg#icon-x`)
+        h1.report__form__title Report a savestate
+        form.report__form(method='dialog')
           div
-            label Vulgar/Offensive Language 
+            label Vulgar/Offensive Language &nbsp
               input(type="radio" name="report" value="vulgar" checked)
           div
-            label Duplicate
+            label Duplicate Savestate &nbsp
               input(type="radio" name="report" value="duplicate")
           div
-            label Doesn't Work
+            label File Doesn't Work &nbsp
               input(type="radio" name="report" value="doesn't__work")
           div
-            label(for="wrong__characters") Wrong Character(s)
+            label(for="wrong__characters") Wrong Character(s) &nbsp
               input(type="radio" name="report" value="wrong__characters")
           div
-            label Other
+            label Other &nbsp
               input(type="radio" name="report" value="other")
-          button(type="submit").dialog__submit Submit
+          button(type="submit").dialog__submit.btn.btn__yellow Submit &nbsp
 
       table.savestate__table
         thead
@@ -31,6 +33,7 @@ block content
             th(scope="col") Title
             //- th(scope="col") Stage
             th(scope="col") File
+            th(scope="col") User
       
 
         tbody
@@ -39,13 +42,12 @@ block content
               td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.title }
-              //- td.savestate__item #{ savestate.stage[0].toUpperCase() + savestate.stage.slice(1).toLowerCase().replaceAll('-', ' ') }
               td.savestate__item
                 a(href=`/gci/${savestate.file}`, download) Download
               if (savestate.user)
                 td.savestate__item.icon__group #{ savestate.user.username }
                   span
-                    //- a.report__btn(data-token=`${savestate._id}`)
+                    a.report__btn(data-token=`${savestate._id}`)
                       svg.icon
                         use(xlink:href=`/img/icons.svg#icon-alert-triangle`)
                     a.share__btn(data-token=`${savestate._id}`)
@@ -61,6 +63,4 @@ block content
     .savestate__amount__token(data-token=`${savestateAmount}`)
   if (characterSavestate.length === 0)
     section.margin__borders.character__page
-      h1.home__title No Savestates for this character yet :(
-e
       h1.home__title No Savestates for this character yet :(

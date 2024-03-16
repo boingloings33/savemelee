@@ -1,12 +1,12 @@
 import axios from "axios";
 import { showAlert } from "./alert";
 
-export const deleteAccount = async (input) => {
+export const deleteAccount = async (input, userId) => {
   if (input === "DELETE") {
     try {
       await axios({
         method: "DELETE",
-        url: "/api/v1/users/deleteMe",
+        url: `/api/v1/users/deleteMe/${userId}`,
       });
       showAlert("success", "Account Succesfully Deleted");
       window.setTimeout(() => {
