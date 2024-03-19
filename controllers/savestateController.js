@@ -1,4 +1,7 @@
 const multer = require("multer");
+const multerS3 = require("multer-s3");
+const { S3Client } = require("@aws-sdk/client-s3");
+
 const APIFeatures = require("../utils/apiFeatures");
 const Savestate = require("../models/savestateModel");
 const factory = require("./handlerFactory");
@@ -27,27 +30,43 @@ const multerFilter = (req, file, callback) => {
   }
 };
 
-const upload = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: process.env.AWS_IAM_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_IAM_SECRET_ACCESS_KEY,
+  },
+  region: process.env.AWS_IAM_REGION,
+});
+const s3Storage = multerS3({
+  s3: s3,
+  bucket: process.env.AWS_S3_BUCKET_NAME,
+
+  metadata: (req, file, cb) => {
+    cb(null, { fieldname: file.fieldname });
+  },
+  key: (req, file, cb) => {
+    cb(null, file.originalname.slice(0, -4) + "-" + Date.now() + ".gci");
+  },
 });
 
+const upload = multer({
+  storage: s3Storage,
+});
 exports.uploadGCIFile = upload.single("file");
 
 exports.getAllSavestates = factory.getAll(Savestate);
 exports.getSavestate = factory.getOne(Savestate);
 exports.updateSavestate = factory.updateOne(Savestate);
-
 exports.deleteSavestate = factory.deleteOne(Savestate);
 
-exports.createSavestate = catchAsync(async (req, res) => {
+exports.createSavestate = catchAsync(async (req, res, next) => {
+  console.log(req.file);
   const newSavestate = await Savestate.create({
     character: req.body.character,
     characterAgainst: req.body.characterAgainst,
-    stage: req.body.stage,
     user: req.body.user,
     title: req.body.title,
-    file: req.file.filename,
+    file: req.file.key,
   });
   res.status(201).json({
     status: "success",

@@ -6,6 +6,7 @@ import { deleteAccount } from "./deleteAccount";
 import { showAlert } from "./alert";
 import { deleteSavestate } from "./deleteSavestate";
 import { emailReport } from "./emailReport";
+import { downloadSavestate } from "./downloadSavestate";
 
 const reportBug = document.querySelector(".report__bug");
 const characterPage = document.querySelector(".character__page");
@@ -39,6 +40,7 @@ if (characterPage) {
   const savesateAmountToken = Number(
     document.querySelector(".savestate__amount__token").dataset.token
   );
+
   let savestateRowAmount = document.querySelectorAll("tr.savestate_row").length;
 
   pageCounter.textContent = `${currentUrlPage}/${Math.ceil(savesateAmountToken / 20)}`;
