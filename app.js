@@ -21,7 +21,13 @@ app.set("views", path.join(__dirname, "views"));
 
 //GLOBAL MIDDLEWARE
 app.use(express.static(path.join(__dirname, "public")));
-
+if (process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    if (req.header("x-forwarded-proto") !== "https")
+      res.redirect(`https://${req.header("host")}${req.url}`);
+    else next();
+  });
+}
 //Set security HTTP headers
 app.use(
   helmet({
