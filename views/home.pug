@@ -2,12 +2,12 @@ extends base
 
 block content
   section.margin__borders.home__page
-    h1.home__title choose your character
+    h1.home__title Choose your character
     .character__select
       each character in characters
         a.character__box(href=`/character/${character}/1`)
           img.character__icon(
-            src=`/img/character-icons/${character}.png`,
+            src=`/img/character-icons-hd/${character}.png`,
             alt="character-image"
           )
     if (user)
