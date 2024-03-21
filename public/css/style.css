@@ -42,6 +42,11 @@ img {
   opacity: 0;
 }
 
+.hidden__fade__slide {
+  opacity: 0;
+  transform: translateY(-1rem);
+}
+
 .btn,
 .btn:link,
 .btn:visited {
@@ -113,13 +118,6 @@ img {
 .alert__error {
   background-color: var(--gamecube-red);
 }
-
-/* .footer__flex {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-} */
 
 /* HEADER */
 .header {
@@ -221,10 +219,11 @@ img {
 }
 
 .character__box {
-  height: 48px;
+  height: 62px;
   justify-self: center;
   cursor: pointer;
   transition: 0.1s;
+  margin: 2px;
 }
 
 .character__box:hover {
@@ -236,7 +235,7 @@ img {
 
 .character__box:active {
   background-color: #d78edb;
-  transform: scale(0.9);
+  transform: scale(1);
   border-radius: 4px;
 }
 
@@ -248,13 +247,19 @@ img {
 }
 
 .character__icon {
-  width: 48px;
+  width: 62px;
   border-radius: 4px;
   opacity: 0;
 }
 .fade {
   opacity: 1;
   transition: 0.5s;
+}
+
+.fastFade {
+  opacity: 1;
+  transition: 0.35s;
+  transform: translateY(0);
 }
 
 #upload__savestate {
@@ -509,7 +514,7 @@ tbody > tr:nth-of-type(even) {
 
 .footer__group {
   margin: 0 18vw 0 18vw;
-  padding: 0.7rem 0 2.5rem 0;
+  padding: 0.7rem 0 2rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -518,6 +523,7 @@ tbody > tr:nth-of-type(even) {
 .footer__link {
   text-decoration: none;
 }
+
 .report__bug {
   cursor: pointer;
 }
@@ -528,10 +534,19 @@ tbody > tr:nth-of-type(even) {
 
 .footer__text {
   font-size: 0.9rem;
+  color: white;
+}
+
+.footer__text:hover {
+  color: var(--sharp-yellow);
 }
 
 .footer__text__title {
   font-size: 1.3rem;
+}
+
+.created__by:hover {
+  color: white;
 }
 
 /* ACCOUNT PAGE */

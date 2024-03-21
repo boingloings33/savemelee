@@ -30,7 +30,7 @@ if (homePage) {
   const homeSubtitle = document.querySelector(".home__subtitle");
   const uploadButton = document.querySelector(".upload__btn");
   window.addEventListener("load", () => {
-    homeTitle.classList.add("fade");
+    homeTitle.classList.add("fastFade");
     if (homeSubtitle) {
       setTimeout(() => {
         homeSubtitle.classList.add("fade");
@@ -156,6 +156,11 @@ if (uploadSavestatePage) {
   const files = document.getElementById("file");
   const title = document.getElementById("savestate__title");
   const removeFiles = document.querySelector(".remove__files");
+  const formSection = document.querySelector(".form__section");
+
+  window.addEventListener("load", () => {
+    formSection.classList.add("fastFade");
+  });
 
   files.addEventListener("change", () => {
     if (files.files.length > 0) {
