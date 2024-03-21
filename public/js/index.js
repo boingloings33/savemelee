@@ -142,11 +142,15 @@ if (logOutBtn) {
 }
 
 if (userDataForm) {
+  const accountFormSection = document.querySelector(".account__form__section");
   userDataForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     updateSettings(name, email, "data");
+  });
+  window.addEventListener("load", () => {
+    accountFormSection.classList.add("fastFade");
   });
 }
 if (updatePasswordForm) {

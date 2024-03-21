@@ -14704,11 +14704,15 @@ For more information please go to https://github.com/aws/aws-sdk-js-v3#functiona
     logOutBtn.addEventListener("click", logout);
   }
   if (userDataForm) {
+    const accountFormSection = document.querySelector(".account__form__section");
     userDataForm.addEventListener("submit", (e2) => {
       e2.preventDefault();
       const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
       updateSettings(name, email, "data");
+    });
+    window.addEventListener("load", () => {
+      accountFormSection.classList.add("fastFade");
     });
   }
   if (updatePasswordForm) {
