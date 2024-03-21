@@ -2,19 +2,19 @@ extends base
 
 block content
   section.margin__borders.home__page
-    h1.home__title Choose your character
-    .character__select
+    h1.home__title.hidden__fade Choose your character
+    div.character__select
       each character in characters
         a.character__box(href=`/character/${character}/1`)
-          img.character__icon(
+          img.character__icon.hidden__fade(
             src=`/img/character-icons-hd/${character}.png`,
             alt="character-image"
           )
     if (user)
-      h1.home__title or
-      a.savestate__wrapper.upload__btn(href="/upload-savestate") Upload Savestates
+      hr.homepage__divider
+      a.savestate__wrapper.upload__btn.hidden__fade(href="/upload-savestate") Upload Savestates
     if (!user)
-      h1.home__subtitle (or log in to upload a savestate...)
+      h1.home__subtitle.hidden__fade (or log in to upload a savestate...)
     
 
     //- h1 savestates      

@@ -8263,11 +8263,11 @@
     if (el)
       el.parentElement.removeChild(el);
   };
-  var showAlert = (type, msg) => {
+  var showAlert = (type, msg, time = 3e3) => {
     hideAlert();
     const markup = `<div class="alert alert__${type}">${msg}</div>`;
     document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-    window.setTimeout(hideAlert, 3e3);
+    window.setTimeout(hideAlert, time);
   };
 
   // public/js/login.js
@@ -14582,6 +14582,7 @@ For more information please go to https://github.com/aws/aws-sdk-js-v3#functiona
 
   // public/js/index.js
   var reportBug = document.querySelector(".report__bug");
+  var homePage = document.querySelector(".home__page");
   var characterPage = document.querySelector(".character__page");
   var uploadSavestatePage = document.querySelector(".upload__savestate__page");
   var userDataForm = document.querySelector(".user__data__form");
@@ -14595,6 +14596,39 @@ For more information please go to https://github.com/aws/aws-sdk-js-v3#functiona
   var savestateByUserPage = document.querySelector(
     ".savestate__by__user__page"
   );
+  if (homePage) {
+    const characterImg = document.querySelectorAll(".character__icon");
+    const homeTitle = document.querySelector(".home__title");
+    const homeSubtitle = document.querySelector(".home__subtitle");
+    const uploadButton = document.querySelector(".upload__btn");
+    window.addEventListener("load", () => {
+      homeTitle.classList.add("fade");
+      if (homeSubtitle) {
+        setTimeout(() => {
+          homeSubtitle.classList.add("fade");
+        }, 200);
+      }
+      if (uploadButton) {
+        console.log("test");
+        uploadButton.classList.add("fade");
+      }
+      function imgLoadDelay(array, callback, delay) {
+        let i2 = 0;
+        let interval = setInterval(() => {
+          callback(array[i2], i2, array);
+          if (++i2 === array.length)
+            clearInterval(interval);
+        }, delay);
+      }
+      imgLoadDelay(
+        characterImg,
+        (img) => {
+          img.classList.add("fade");
+        },
+        10
+      );
+    });
+  }
   if (characterPage) {
     let reportedSavestate = "";
     const reportButton = document.querySelectorAll(".report__btn");

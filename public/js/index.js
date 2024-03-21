@@ -9,6 +9,7 @@ import { emailReport } from "./emailReport";
 import { downloadSavestate } from "./downloadSavestate";
 
 const reportBug = document.querySelector(".report__bug");
+const homePage = document.querySelector(".home__page");
 const characterPage = document.querySelector(".character__page");
 const uploadSavestatePage = document.querySelector(".upload__savestate__page");
 const userDataForm = document.querySelector(".user__data__form");
@@ -23,6 +24,38 @@ const savestateByUserPage = document.querySelector(
   ".savestate__by__user__page"
 );
 
+if (homePage) {
+  const characterImg = document.querySelectorAll(".character__icon");
+  const homeTitle = document.querySelector(".home__title");
+  const homeSubtitle = document.querySelector(".home__subtitle");
+  const uploadButton = document.querySelector(".upload__btn");
+  window.addEventListener("load", () => {
+    homeTitle.classList.add("fade");
+    if (homeSubtitle) {
+      setTimeout(() => {
+        homeSubtitle.classList.add("fade");
+      }, 200);
+    }
+    if (uploadButton) {
+      console.log("test");
+      uploadButton.classList.add("fade");
+    }
+    function imgLoadDelay(array, callback, delay) {
+      let i = 0;
+      let interval = setInterval(() => {
+        callback(array[i], i, array);
+        if (++i === array.length) clearInterval(interval);
+      }, delay);
+    }
+    imgLoadDelay(
+      characterImg,
+      (img) => {
+        img.classList.add("fade");
+      },
+      10
+    );
+  });
+}
 if (characterPage) {
   let reportedSavestate = "";
   const reportButton = document.querySelectorAll(".report__btn");

@@ -41,7 +41,7 @@ block content
             tr.savestate_row
               td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
-              td.savestate__item #{ savestate.title }
+              td.savestate__item #{ savestate.title.replaceAll(".gci", "") }
               td.savestate__item
                 a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download) Download
               if (savestate.user)
