@@ -196,7 +196,7 @@ img {
   flex-direction: column;
   margin-top: 4rem;
   margin-bottom: 2rem;
-  gap: 48px;
+  gap: 20px;
 }
 
 .home__title {
@@ -267,7 +267,6 @@ img {
   cursor: pointer;
   align-self: center;
   filter: drop-shadow(3px 3px 30px rgba(255, 196, 0, 0.7));
-  margin-top: 1rem;
 }
 
 .upload__btn {
@@ -279,7 +278,7 @@ img {
   border-radius: 200px;
   font-weight: bold;
   filter: drop-shadow(3px 3px 30px rgba(255, 196, 0, 0.7));
-  margin-top: 2rem;
+  margin-top: 1rem;
   transition: 0.25s;
 }
 
