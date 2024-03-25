@@ -6,8 +6,10 @@ import { deleteAccount } from "./deleteAccount";
 import { showAlert } from "./alert";
 import { deleteSavestate } from "./deleteSavestate";
 import { emailReport } from "./emailReport";
+import { downloadSavestate } from "./downloadSavestate";
 
 const reportBug = document.querySelector(".report__bug");
+const homePage = document.querySelector(".home__page");
 const characterPage = document.querySelector(".character__page");
 const uploadSavestatePage = document.querySelector(".upload__savestate__page");
 const userDataForm = document.querySelector(".user__data__form");
@@ -22,6 +24,38 @@ const savestateByUserPage = document.querySelector(
   ".savestate__by__user__page"
 );
 
+if (homePage) {
+  const characterImg = document.querySelectorAll(".character__icon");
+  const homeTitle = document.querySelector(".home__title");
+  const homeSubtitle = document.querySelector(".home__subtitle");
+  const uploadButton = document.querySelector(".upload__btn");
+  window.addEventListener("load", () => {
+    homeTitle.classList.add("fastFade");
+    if (homeSubtitle) {
+      setTimeout(() => {
+        homeSubtitle.classList.add("fade");
+      }, 200);
+    }
+    if (uploadButton) {
+      console.log("test");
+      uploadButton.classList.add("fade");
+    }
+    function imgLoadDelay(array, callback, delay) {
+      let i = 0;
+      let interval = setInterval(() => {
+        callback(array[i], i, array);
+        if (++i === array.length) clearInterval(interval);
+      }, delay);
+    }
+    imgLoadDelay(
+      characterImg,
+      (img) => {
+        img.classList.add("fade");
+      },
+      10
+    );
+  });
+}
 if (characterPage) {
   let reportedSavestate = "";
   const reportButton = document.querySelectorAll(".report__btn");
@@ -39,6 +73,7 @@ if (characterPage) {
   const savesateAmountToken = Number(
     document.querySelector(".savestate__amount__token").dataset.token
   );
+
   let savestateRowAmount = document.querySelectorAll("tr.savestate_row").length;
 
   pageCounter.textContent = `${currentUrlPage}/${Math.ceil(savesateAmountToken / 20)}`;
@@ -107,11 +142,15 @@ if (logOutBtn) {
 }
 
 if (userDataForm) {
+  const accountFormSection = document.querySelector(".account__form__section");
   userDataForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     updateSettings(name, email, "data");
+  });
+  window.addEventListener("load", () => {
+    accountFormSection.classList.add("fastFade");
   });
 }
 if (updatePasswordForm) {
@@ -121,6 +160,11 @@ if (uploadSavestatePage) {
   const files = document.getElementById("file");
   const title = document.getElementById("savestate__title");
   const removeFiles = document.querySelector(".remove__files");
+  const formSection = document.querySelector(".form__section");
+
+  window.addEventListener("load", () => {
+    formSection.classList.add("fastFade");
+  });
 
   files.addEventListener("change", () => {
     if (files.files.length > 0) {

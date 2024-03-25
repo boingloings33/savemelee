@@ -33,7 +33,7 @@ block content
             th(scope="col") Title
             //- th(scope="col") Stage
             th(scope="col") File
-            th(scope="col") User
+            th(scope="col") Uploaded By
       
 
         tbody
@@ -41,9 +41,9 @@ block content
             tr.savestate_row
               td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
-              td.savestate__item #{ savestate.title }
+              td.savestate__item #{ savestate.title.replaceAll(".gci", "") }
               td.savestate__item
-                a(href=`/gci/${savestate.file}`, download) Download
+                a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download) Download
               if (savestate.user)
                 td.savestate__item.icon__group #{ savestate.user.username }
                   span
@@ -62,4 +62,4 @@ block content
     .character__token(data-token=`${characterSavestate[0].character}`)
     .savestate__amount__token(data-token=`${savestateAmount}`)
   if (characterSavestate.length === 0)
-      h1.home__title.no__character No Savestates for this character yet :(
+      h1.home__title.no__character No Savestates for this character yet :(      

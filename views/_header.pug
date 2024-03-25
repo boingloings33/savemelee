@@ -5,9 +5,9 @@ header.header
         img(src="/img/sm3-1.webp")
     if (!user)
       .header__text
-        a(href="/login")
+        a.login__btn(href="/login")
           h4 Log In
-        a(href="/signup") 
+        a.signup__btn(href="/signup") 
           h4 Sign Up
     if (user)
       .header__text

@@ -15,10 +15,12 @@ const {
 const { protect, restrictTo } = require("../controllers/authController");
 
 router.use("/:savestateId/reviews", reviewRouter);
+
 router
   .route("/")
   .get(getAllSavestates)
   .post(protect, uploadGCIFile, createSavestate);
+
 router
   .route("/:id")
   .get(getSavestate)
