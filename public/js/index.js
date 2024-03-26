@@ -44,7 +44,7 @@ if (homePage) {
       let i = 0;
       let interval = setInterval(() => {
         callback(array[i], i, array);
-        if (++i === array.length) clearInterval(interval);
+        if (i++ === array.length) clearInterval(interval);
       }, delay);
     }
     imgLoadDelay(
@@ -130,6 +130,9 @@ if (signupForm) {
 }
 
 if (loginForm) {
+  window.addEventListener("load", () => {
+    formSection.classList.add("fastFade");
+  });
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;

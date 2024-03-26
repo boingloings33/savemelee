@@ -6,7 +6,7 @@ block content
     div.character__select
       each character in characters
         a.character__box(href=`/character/${character}/1`)
-          img.character__icon.hidden__fade(
+          img.character__icon(
             src=`/img/character-icons-hd/${character}.png`,
             alt="character-image"
           )
