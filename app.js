@@ -82,13 +82,6 @@ app.use(xss());
 
 app.use(compression());
 
-//Test middleware
-app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-
-  next();
-});
-
 //ROUTES
 app.use("/", viewRouter);
 app.use("/api/v1/users", userRouter);

@@ -6,7 +6,6 @@ import { deleteAccount } from "./deleteAccount";
 import { showAlert } from "./alert";
 import { deleteSavestate } from "./deleteSavestate";
 import { emailReport } from "./emailReport";
-import { downloadSavestate } from "./downloadSavestate";
 
 const reportBug = document.querySelector(".report__bug");
 const homePage = document.querySelector(".home__page");
