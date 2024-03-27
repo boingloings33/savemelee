@@ -13,23 +13,6 @@ exports.aliasTopSavestates = (req, res, next) => {
   next();
 };
 
-const multerStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/gci");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname.slice(0, -4) + "-" + Date.now() + ".gci");
-  },
-});
-
-const multerFilter = (req, file, callback) => {
-  if (file.mimetype.startsWith("application/octet-stream")) {
-    callback(null, true);
-  } else {
-    callback(new AppError("Please upload gci file formats", 400), false);
-  }
-};
-
 const s3 = new S3Client({
   credentials: {
     accessKeyId: process.env.AWS_IAM_ACCESS_KEY,
@@ -53,14 +36,7 @@ const upload = multer({
   storage: s3Storage,
 });
 exports.uploadGCIFile = upload.single("file");
-
-exports.getAllSavestates = factory.getAll(Savestate);
-exports.getSavestate = factory.getOne(Savestate);
-exports.updateSavestate = factory.updateOne(Savestate);
-exports.deleteSavestate = factory.deleteOne(Savestate);
-
 exports.createSavestate = catchAsync(async (req, res, next) => {
-  console.log(req.file);
   const newSavestate = await Savestate.create({
     character: req.body.character,
     characterAgainst: req.body.characterAgainst,
@@ -73,6 +49,11 @@ exports.createSavestate = catchAsync(async (req, res, next) => {
     data: { data: newSavestate },
   });
 });
+exports.getAllSavestates = factory.getAll(Savestate);
+exports.getSavestate = factory.getOne(Savestate);
+exports.updateSavestate = factory.updateOne(Savestate);
+exports.deleteSavestate = factory.deleteOne(Savestate);
+
 exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
   const savestates = await Savestate.find({ user: { _id: req.params.id } });
   res.status(200).json({
@@ -81,7 +62,6 @@ exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
     savestates,
   });
 });
-
 exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
   const characters = Savestate.schema.path("character").enumValues;
   if (!characters.includes(req.params.character)) {

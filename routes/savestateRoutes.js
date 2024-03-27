@@ -10,9 +10,8 @@ const {
   getCharacterSavestates,
   uploadGCIFile,
   getSavestatesByUser,
-  deleteAllSavestatesByUser,
 } = require("../controllers/savestateController");
-const { protect, restrictTo } = require("../controllers/authController");
+const { protect } = require("../controllers/authController");
 
 router.use("/:savestateId/reviews", reviewRouter);
 

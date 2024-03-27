@@ -6,30 +6,6 @@ const savestateSchema = new mongoose.Schema({
     required: [true, "Please provide a title"],
     maxlength: [30, "Title can't be more than 30 characters"],
   },
-  // stage: {
-  //   type: String,
-  //   enum: [
-  //     "battlefield",
-  //     "final-destination",
-  //     "fountain-of-dreams",
-  //     "yoshi's-story",
-  //     "dreamland",
-  //     "stadium",
-  //   ],
-  //   required: [true, "Please provide the stage this savestate is on."],
-  // },
-  ratingsAverage: {
-    type: Number,
-    default: 0,
-    min: [1, "Rating must be greater than 1.0"],
-    max: [5, "Rating must be less than 5.0"],
-    set: (val) => Math.round(val * 10) / 10,
-    default: 4.5,
-  },
-  ratingsQuantity: {
-    type: Number,
-    default: 0,
-  },
   character: {
     type: String,
     enum: [

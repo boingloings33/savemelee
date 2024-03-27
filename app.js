@@ -4,7 +4,6 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
-const csp = require("express-csp-header");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const compression = require("compression");
@@ -18,9 +17,8 @@ const app = express();
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
-
-//GLOBAL MIDDLEWARE
 app.use(express.static(path.join(__dirname, "public")));
+
 if (process.env.NODE_ENV === "production") {
   app.use((req, res, next) => {
     if (req.header("x-forwarded-proto") !== "https")
@@ -79,7 +77,6 @@ app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
-
 app.use(compression());
 
 //ROUTES
