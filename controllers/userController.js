@@ -1,5 +1,4 @@
 const User = require("../models/userModel");
-const Savestate = require("../models/savestateModel");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const factory = require("./handlerFactory");
@@ -45,19 +44,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
-exports.deleteAllSavestatesByUser = catchAsync(async (req, res, next) => {
-  const savestates = await Savestate.deleteMany({
-    user: { _id: req.params.id },
-  });
-  if (!savestates) {
-    return next(new AppError("No savestates found with that ID", 404));
-  }
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-  next();
-});
+
 exports.createUser = function (req, res) {
   res.status(500).json({
     status: "error",

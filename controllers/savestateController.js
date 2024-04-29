@@ -1,6 +1,6 @@
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-const { S3Client } = require("@aws-sdk/client-s3");
+const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
 const APIFeatures = require("../utils/apiFeatures");
 const Savestate = require("../models/savestateModel");
@@ -31,10 +31,10 @@ const s3Storage = multerS3({
     cb(null, file.originalname.slice(0, -4) + "-" + Date.now() + ".gci");
   },
 });
-
 const upload = multer({
   storage: s3Storage,
 });
+
 exports.uploadGCIFile = upload.single("file");
 exports.createSavestate = catchAsync(async (req, res, next) => {
   const newSavestate = await Savestate.create({
@@ -52,8 +52,48 @@ exports.createSavestate = catchAsync(async (req, res, next) => {
 exports.getAllSavestates = factory.getAll(Savestate);
 exports.getSavestate = factory.getOne(Savestate);
 exports.updateSavestate = factory.updateOne(Savestate);
-exports.deleteSavestate = factory.deleteOne(Savestate);
+exports.deleteSavestate = catchAsync(async (req, res, next) => {
+  const savestate = await Savestate.findByIdAndDelete(req.params.id);
+  console.log(savestate);
+  const bucketInput = {
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: savestate.file,
+  };
+  const bucketCommand = new DeleteObjectCommand(bucketInput);
+  await s3.send(bucketCommand);
 
+  if (!savestate) {
+    return next(new AppError("No savestate found with that ID", 404));
+  }
+
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
+exports.deleteAllSavestatesByUser = catchAsync(async (req, res, next) => {
+  const savestates = await Savestate.find({ user: { _id: req.params.id } });
+  savestates.forEach((savestate) => {
+    const bucketInput = {
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Key: savestate.file,
+    };
+    const bucketCommand = new DeleteObjectCommand(bucketInput);
+    s3.send(bucketCommand);
+  });
+  const deleteSavestates = await Savestate.deleteMany({
+    user: { _id: req.params.id },
+  });
+
+  if (!deleteSavestates) {
+    return next(new AppError("No savestates found with that ID", 404));
+  }
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+  next();
+});
 exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
   const savestates = await Savestate.find({ user: { _id: req.params.id } });
   res.status(200).json({
@@ -74,7 +114,6 @@ exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
   )
     .paginate()
     .sort();
-
   const savestates = await features.query;
 
   res.status(200).json({

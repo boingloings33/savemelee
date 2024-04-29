@@ -18,9 +18,11 @@ const {
   getMe,
   getAllUsers,
   updateUser,
-  deleteAllSavestatesByUser,
 } = require("../controllers/userController");
 
+const {
+  deleteAllSavestatesByUser,
+} = require("../controllers/savestateController");
 const router = express.Router();
 
 router.post("/signup", signup);

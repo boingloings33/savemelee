@@ -36,7 +36,6 @@ if (homePage) {
       }, 200);
     }
     if (uploadButton) {
-      console.log("test");
       uploadButton.classList.add("fade");
     }
     function imgLoadDelay(array, callback, delay) {
@@ -49,7 +48,9 @@ if (homePage) {
     imgLoadDelay(
       characterImg,
       (img) => {
-        img.classList.add("fade");
+        if (img) {
+          img.classList.add("fade");
+        }
       },
       10
     );

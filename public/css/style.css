@@ -107,8 +107,8 @@ img {
   text-align: center;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding: 1.6rem 15rem;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.288);
+  padding: 0.5rem 15rem;
+  margin-top: 4px;
   white-space: nowrap;
 }
 
@@ -687,5 +687,9 @@ tbody > tr:nth-of-type(even) {
   align-items: center;
 }
 .no__savestates__title {
-  padding: 2rem 10rem 0 10rem;
+  padding: 2rem 4rem 0 4rem;
+  font-size: 32px;
+}
+.loader {
+  width: 300px;
 }
