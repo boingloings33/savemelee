@@ -110,6 +110,7 @@ img {
   padding: 0.5rem 15rem;
   margin-top: 4px;
   white-space: nowrap;
+  width: 100%;
 }
 
 .alert__success {
