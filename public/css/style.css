@@ -711,6 +711,12 @@ tbody > tr:nth-of-type(even) {
 
   .character__icon {
     width: 52px;
+    height: 52px;
+  }
+
+  .character__box {
+    width: 52px;
+    height: 52px;
   }
   .upload__btn {
     font-size: 36px;
