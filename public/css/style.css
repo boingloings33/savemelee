@@ -700,6 +700,17 @@ tbody > tr:nth-of-type(even) {
   width: 300px;
 }
 
+.upload__first {
+  text-decoration: none;
+  color: var(--charcoal);
+}
+
+.upload__first:hover {
+  color: var(--sharp-yellow);
+}
+
+/* MEDIA QUERIES */
+
 @media (max-width: 1700px) {
   .home__page {
     margin-top: 2rem;
