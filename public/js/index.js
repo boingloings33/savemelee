@@ -28,16 +28,16 @@ if (homePage) {
   const homeTitle = document.querySelector(".home__title");
   const homeSubtitle = document.querySelector(".home__subtitle");
   const uploadButton = document.querySelector(".upload__btn");
+  homeTitle.classList.add("fastFade");
+  if (homeSubtitle) {
+    setTimeout(() => {
+      homeSubtitle.classList.add("fade");
+    }, 200);
+  }
+  if (uploadButton) {
+    uploadButton.classList.add("fade");
+  }
   window.addEventListener("load", () => {
-    homeTitle.classList.add("fastFade");
-    if (homeSubtitle) {
-      setTimeout(() => {
-        homeSubtitle.classList.add("fade");
-      }, 200);
-    }
-    if (uploadButton) {
-      uploadButton.classList.add("fade");
-    }
     function imgLoadDelay(array, callback, delay) {
       let i = 0;
       let interval = setInterval(() => {
