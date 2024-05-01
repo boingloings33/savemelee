@@ -51,6 +51,10 @@ img {
   transform: translateY(-1rem);
 }
 
+.zindex {
+  z-index: 9999;
+}
+
 .btn,
 .btn:link,
 .btn:visited {
@@ -222,6 +226,7 @@ img {
   row-gap: 12px;
   padding: 0 12rem 0 12rem;
   justify-content: center;
+  position: relative;
 }
 
 .character__box {
@@ -250,6 +255,25 @@ img {
   border: none;
   cursor: default;
   pointer-events: none;
+}
+
+.character__box:nth-last-child(12) {
+  position: relative;
+}
+
+.character__box:nth-last-child(11) {
+  display: none;
+}
+
+.zelda__box {
+  position: absolute;
+  right: -54px;
+  top: -2px;
+  transition: 0.75s;
+}
+
+.zelda__box:hover {
+  transform: scale(1);
 }
 
 .character__icon {

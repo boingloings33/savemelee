@@ -24,6 +24,30 @@ const savestateByUserPage = document.querySelector(
 );
 
 if (homePage) {
+  const sheikBox = document.querySelectorAll(".character__box")[15];
+  sheikBox.className = "character__box zindex";
+  const zeldaImg = document.createElement("img");
+  zeldaImg.setAttribute("src", "/img/character-icons-hd/zelda.webp");
+  zeldaImg.className = "character__icon zelda__icon";
+  const zeldaBox = document.createElement("a");
+  zeldaBox.href = "/character/zelda/1";
+  zeldaBox.className = "character__box zelda__box zindex hidden";
+
+  zeldaBox.appendChild(zeldaImg);
+  sheikBox.appendChild(zeldaBox);
+
+  sheikBox.addEventListener("mouseenter", () => {
+    zeldaBox.classList.remove("hidden");
+  });
+
+  sheikBox.addEventListener("click", () => {
+    zeldaBox.classList.add("hidden");
+  });
+
+  sheikBox.addEventListener("mouseleave", () => {
+    zeldaBox.classList.add("hidden");
+  });
+
   const characterImg = document.querySelectorAll(".character__icon");
   const homeTitle = document.querySelector(".home__title");
   const homeSubtitle = document.querySelector(".home__subtitle");
