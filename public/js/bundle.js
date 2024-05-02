@@ -2324,8 +2324,6 @@
   var signupForm = document.getElementById("signup__form");
   var deleteAccountForm = document.querySelector(".delete__account__form");
   var logOutBtn = document.querySelector(".logout__btn");
-  var charactersRemaining = document.getElementById("characters__remaining");
-  var savestateDescription = document.getElementById("savestate__title");
   var savestateByUserPage = document.querySelector(
     ".savestate__by__user__page"
   );
@@ -2477,8 +2475,15 @@
     const savestateForm = document.querySelector(".form");
     const files = document.getElementById("file");
     const title = document.getElementById("savestate__title");
+    const description = document.getElementById("savestate__description");
     const removeFiles = document.querySelector(".remove__files");
     const formSection2 = document.querySelector(".form__section");
+    const charactersRemaining = document.getElementById("characters__remaining");
+    const descriptionCharactersRemaining = document.getElementById(
+      "desc__characters__remaining"
+    );
+    charactersRemaining.textContent = "0 / 30";
+    descriptionCharactersRemaining.textContent = " 0 / 120";
     window.addEventListener("load", () => {
       formSection2.classList.add("fastFade");
     });
@@ -2490,7 +2495,7 @@
         title.value = "";
         title.disabled = true;
         charactersRemaining.textContent = "0 / 30";
-        charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+        charactersRemaining.textContent = ` ${title.value.length} / 30`;
       }
     });
     savestateForm.addEventListener("submit", (e) => {
@@ -2509,18 +2514,23 @@
         if (files.files.length > 1) {
           form.append("title", file.name);
         }
+        form.append("description", description.value);
         form.append("file", file);
         uploadSavestate(form);
       });
       title.value = "";
+      description.value = "";
       files.value = "";
       charactersRemaining.textContent = "0 / 30";
+      descriptionCharactersRemaining.textContent = " 0 / 60";
       title.disabled = false;
       removeFiles.classList.add("hidden");
     });
-    charactersRemaining.textContent = "0 / 30";
-    savestateDescription.addEventListener("input", () => {
-      charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+    title.addEventListener("input", () => {
+      charactersRemaining.textContent = ` ${title.value.length} / 30`;
+    });
+    description.addEventListener("input", () => {
+      descriptionCharactersRemaining.textContent = ` ${description.value.length} / 60`;
     });
     removeFiles.addEventListener("click", () => {
       files.value = "";

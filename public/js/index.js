@@ -17,8 +17,7 @@ const loginForm = document.getElementById("login__form");
 const signupForm = document.getElementById("signup__form");
 const deleteAccountForm = document.querySelector(".delete__account__form");
 const logOutBtn = document.querySelector(".logout__btn");
-const charactersRemaining = document.getElementById("characters__remaining");
-const savestateDescription = document.getElementById("savestate__title");
+
 const savestateByUserPage = document.querySelector(
   ".savestate__by__user__page"
 );
@@ -186,8 +185,15 @@ if (uploadSavestatePage) {
   const savestateForm = document.querySelector(".form");
   const files = document.getElementById("file");
   const title = document.getElementById("savestate__title");
+  const description = document.getElementById("savestate__description");
   const removeFiles = document.querySelector(".remove__files");
   const formSection = document.querySelector(".form__section");
+  const charactersRemaining = document.getElementById("characters__remaining");
+  const descriptionCharactersRemaining = document.getElementById(
+    "desc__characters__remaining"
+  );
+  charactersRemaining.textContent = "0 / 30";
+  descriptionCharactersRemaining.textContent = " 0 / 120";
 
   window.addEventListener("load", () => {
     formSection.classList.add("fastFade");
@@ -201,7 +207,7 @@ if (uploadSavestatePage) {
       title.value = "";
       title.disabled = true;
       charactersRemaining.textContent = "0 / 30";
-      charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+      charactersRemaining.textContent = ` ${title.value.length} / 30`;
     }
   });
   savestateForm.addEventListener("submit", (e) => {
@@ -213,7 +219,6 @@ if (uploadSavestatePage) {
         "characterAgainst",
         document.getElementById("character__against").value
       );
-
       form.append("user", document.querySelector(".user__id").dataset.token);
       if (files.files.length === 1) {
         form.append("title", title.value);
@@ -221,20 +226,24 @@ if (uploadSavestatePage) {
       if (files.files.length > 1) {
         form.append("title", file.name);
       }
-
+      form.append("description", description.value);
       form.append("file", file);
       uploadSavestate(form);
     });
     title.value = "";
+    description.value = "";
     files.value = "";
     charactersRemaining.textContent = "0 / 30";
+    descriptionCharactersRemaining.textContent = " 0 / 60";
     title.disabled = false;
     removeFiles.classList.add("hidden");
   });
 
-  charactersRemaining.textContent = "0 / 30";
-  savestateDescription.addEventListener("input", () => {
-    charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;
+  title.addEventListener("input", () => {
+    charactersRemaining.textContent = ` ${title.value.length} / 30`;
+  });
+  description.addEventListener("input", () => {
+    descriptionCharactersRemaining.textContent = ` ${description.value.length} / 60`;
   });
   removeFiles.addEventListener("click", () => {
     files.value = "";

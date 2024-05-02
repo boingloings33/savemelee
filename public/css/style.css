@@ -405,7 +405,13 @@ tbody > tr:nth-of-type(even) {
   margin-top: 6px;
   fill: var(--gamecube-color);
   cursor: pointer;
-  fill: var(--gamecube-color);
+}
+.icon:hover {
+  fill: var(--sharp-yellow-hover);
+}
+
+.icon:active {
+  transform: scale(1.1);
 }
 
 .icon:last-child {
@@ -434,7 +440,7 @@ tbody > tr:nth-of-type(even) {
   gap: 14px;
   width: fit-content;
   margin: 0 auto;
-  margin-top: 4rem;
+  margin-top: 2rem;
   background-color: var(--gamecube-color);
   padding: 1.5rem 4rem 1.5rem 4rem;
   border-radius: 8px;
@@ -450,7 +456,7 @@ tbody > tr:nth-of-type(even) {
 }
 
 .heading__secondary {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 2rem;
 }
 
@@ -487,12 +493,13 @@ tbody > tr:nth-of-type(even) {
 }
 
 /* Upload Savestate Form */
+
 .upload__savestate__page .form__section {
-  padding: 2.5rem 4rem 2.5rem 4rem;
+  padding: 2.5rem 4rem;
 }
 
 .upload__savestate__page .form {
-  gap: 12px;
+  gap: 2px;
 }
 .select__box {
   font-size: 14px;
@@ -504,6 +511,16 @@ tbody > tr:nth-of-type(even) {
 }
 
 #savestate__title {
+  border-radius: 6px;
+  border: none;
+  resize: none;
+  padding: 0.5rem;
+  font-size: 16px;
+  font-family: inherit;
+  width: 100%;
+}
+
+#savestate__description {
   border-radius: 6px;
   border: none;
   resize: none;
@@ -606,7 +623,7 @@ tbody > tr:nth-of-type(even) {
   gap: 14px;
   width: fit-content;
   margin: 0 auto;
-  margin-top: 4rem;
+  margin-top: 2rem;
   background-color: var(--gamecube-color);
   padding: 2.5rem 4rem 2.5rem 4rem;
   border-radius: 8px;

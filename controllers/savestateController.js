@@ -42,6 +42,7 @@ exports.createSavestate = catchAsync(async (req, res, next) => {
     characterAgainst: req.body.characterAgainst,
     user: req.body.user,
     title: req.body.title,
+    description: req.body.description,
     file: req.file.key,
   });
   res.status(201).json({

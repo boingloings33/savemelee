@@ -29,8 +29,16 @@ block content
             name="title",
             maxlength="30",
             autocomplete="off"
-          ) 
-          p#characters__remaining test
+          )
+          p#characters__remaining
+        .form__group
+          label.form__label(for="Title") Description (optional)
+          textarea#savestate__description(
+            name="description",
+            maxlength="60",
+            autocomplete="off"
+          )
+          p#desc__characters__remaining
         .form__group
           label.form__label(for="password-confirm") Select .gci File
           input#file.form__input(

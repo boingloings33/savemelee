@@ -31,7 +31,7 @@ block content
             th(scope="col") Character As
             th(scope="col") Character Against
             th(scope="col") Title
-            //- th(scope="col") Stage
+            th(scope="col") Description
             th(scope="col") File
             th(scope="col") Uploaded By
       
@@ -42,6 +42,7 @@ block content
               td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.title.replaceAll(".gci", "") }
+              td.savestate__item #{savestate.description}
               td.savestate__item
                 a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download) Download
               if (savestate.user)

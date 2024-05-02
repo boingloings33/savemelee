@@ -6,6 +6,10 @@ const savestateSchema = new mongoose.Schema({
     required: [true, "Please provide a title"],
     maxlength: [30, "Title can't be more than 30 characters"],
   },
+  description: {
+    type: String,
+    maxlength: [60, "Description can't be more than 120 characters"],
+  },
   character: {
     type: String,
     enum: [
