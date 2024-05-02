@@ -2246,9 +2246,6 @@
       });
       if (res.data.status === "success") {
         showAlert("success", "Savestate uploaded successfully!");
-        window.setTimeout(() => {
-          location.assign("/upload-savestate");
-        }, 1500);
       }
     } catch (err) {
       showAlert("error", err.response.data.message);
@@ -2515,6 +2512,11 @@
         form.append("file", file);
         uploadSavestate(form);
       });
+      title.value = "";
+      files.value = "";
+      charactersRemaining.textContent = "0 / 30";
+      title.disabled = false;
+      removeFiles.classList.add("hidden");
     });
     charactersRemaining.textContent = "0 / 30";
     savestateDescription.addEventListener("input", () => {

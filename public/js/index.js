@@ -206,7 +206,6 @@ if (uploadSavestatePage) {
   });
   savestateForm.addEventListener("submit", (e) => {
     e.preventDefault();
-
     Array.from(files.files).forEach((file, i) => {
       const form = new FormData();
       form.append("character", document.getElementById("characters").value);
@@ -226,7 +225,13 @@ if (uploadSavestatePage) {
       form.append("file", file);
       uploadSavestate(form);
     });
+    title.value = "";
+    files.value = "";
+    charactersRemaining.textContent = "0 / 30";
+    title.disabled = false;
+    removeFiles.classList.add("hidden");
   });
+
   charactersRemaining.textContent = "0 / 30";
   savestateDescription.addEventListener("input", () => {
     charactersRemaining.textContent = ` ${savestateDescription.value.length} / 30`;

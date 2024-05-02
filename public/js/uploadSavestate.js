@@ -11,9 +11,6 @@ export const uploadSavestate = async (formData) => {
 
     if (res.data.status === "success") {
       showAlert("success", "Savestate uploaded successfully!");
-      window.setTimeout(() => {
-        location.assign("/upload-savestate");
-      }, 1500);
     }
   } catch (err) {
     showAlert("error", err.response.data.message);
