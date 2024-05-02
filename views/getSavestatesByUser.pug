@@ -12,7 +12,9 @@ block content
             th(scope="col") Character As
             th(scope="col") Character Against
             th(scope="col") Title
+            th(scope="col") Description
             th(scope="col") File
+            th(scope="col") Edit
 
         tbody
           each savestate in userSavestates
@@ -20,13 +22,17 @@ block content
               td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.title }
-              td.savestate__item.icon__group
+              td.savestate__item #{ savestate.description }
+              td.savestate__item
                 a(href=`/gci/${savestate.file}`, download) Download
-                span
-                  a.delete__btn(data-token=`${savestate._id}`)
-                    svg.icon
-                      use(xlink:href="/img/icons.svg#icon-delete")
-                  a.share__btn(data-token=`${savestate._id}`)
-                    svg.icon
-                      use(xlink:href="/img/icons.svg#icon-share")
+              td.savestate__item.icon__group 
+                a.edit__btn(data-token=`${savestate._id}`)
+                  svg.icon
+                    use(xlink:href="/img/icons.svg#icon-edit")
+                a.delete__btn(data-token=`${savestate._id}`)
+                  svg.icon
+                    use(xlink:href="/img/icons.svg#icon-delete")
+                a.share__btn(data-token=`${savestate._id}`)
+                  svg.icon
+                    use(xlink:href="/img/icons.svg#icon-share")   
     .user__id(data-token=`${user.id}`)

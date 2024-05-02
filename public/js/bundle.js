@@ -2550,6 +2550,7 @@
   if (savestateByUserPage) {
     const deleteButton = document.querySelectorAll(".delete__btn");
     const shareButton = document.querySelectorAll(".share__btn");
+    const editButton = document.querySelectorAll(".edit__btn");
     const userId = document.querySelector(".user__id").dataset.token;
     const protocol = location.protocol + "//" + location.host;
     shareButton.forEach((btn) => {

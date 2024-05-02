@@ -752,7 +752,16 @@ tbody > tr:nth-of-type(even) {
 
 /* MEDIA QUERIES */
 
-@media (max-width: 1700px) {
+@media (max-width: 1740px) {
+  .margin__borders {
+    margin: 0 14vw;
+  }
+  .footer__group {
+    margin: 0 14vw;
+  }
+  .nav__items {
+    padding: 2px 14vw;
+  }
   .home__page {
     margin-top: 2rem;
     margin-bottom: 1rem;
