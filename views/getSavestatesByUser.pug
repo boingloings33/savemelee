@@ -6,6 +6,28 @@ block content
         h1.home__title No Savestates for this user yet :(
   if (userSavestates.length > 0)
     section.margin__borders.savestate__by__user__page
+      dialog.update__dialog
+          svg.close__icon
+            use(xlink:href=`/img/icons.svg#icon-x`)
+          h1.update__form__title Update savestate
+          form.update__form(method='dialog')
+            .form__group
+              label.form__label(for="Title") Title
+              input#savestate__title(
+                  name="title",
+                  maxlength="30",
+                  autocomplete="off"
+              )
+              p#characters__remaining
+            .form__group
+              label.form__label(for="Title") Description (optional)
+              textarea#savestate__description(
+                name="description",
+                maxlength="60",
+                autocomplete="off"
+              )
+              p#desc__characters__remaining
+            button(type="submit").dialog__submit.btn.btn__yellow Submit &nbsp
       table.savestate__table
         thead
           tr.savestate__row
@@ -18,11 +40,11 @@ block content
 
         tbody
           each savestate in userSavestates
-            tr.savestate_row
+            tr.savestate_row(data-token=`${savestate._id}`)
               td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
               td.savestate__item #{ savestate.title }
-              td.savestate__item #{ savestate.description }
+              td.savestate__item.savestate__description #{ savestate.description }
               td.savestate__item
                 a(href=`/gci/${savestate.file}`, download) Download
               td.savestate__item.icon__group 

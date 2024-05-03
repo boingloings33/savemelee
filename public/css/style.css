@@ -726,6 +726,25 @@ tbody > tr:nth-of-type(even) {
   background-color: #1a1a1a1a;
 }
 
+.update__dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.288);
+  padding: 3.5rem;
+  background-image: linear-gradient(
+    to right top,
+    #6545b2,
+    #6c4eb3,
+    #7256b5,
+    #795fb6,
+    #7f67b7
+  );
+}
+
 /* NO SAVESTATES PAGE */
 .no__savestates__section {
   font-size: 26px;

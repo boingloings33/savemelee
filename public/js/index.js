@@ -268,6 +268,9 @@ if (savestateByUserPage) {
   const deleteButton = document.querySelectorAll(".delete__btn");
   const shareButton = document.querySelectorAll(".share__btn");
   const editButton = document.querySelectorAll(".edit__btn");
+  const updateDialog = document.querySelector(".update__dialog");
+  const updateForm = document.querySelector(".updateForm");
+
   const userId = document.querySelector(".user__id").dataset.token;
   const protocol = location.protocol + "//" + location.host;
   shareButton.forEach((btn) => {
@@ -283,6 +286,10 @@ if (savestateByUserPage) {
     btn.addEventListener("click", () => {
       deleteSavestate(btn.dataset.token, userId);
     });
+  });
+
+  editButton.forEach((btn, i) => {
+    btn.addEventListener("click", () => {});
   });
 }
 
