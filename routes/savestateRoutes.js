@@ -26,6 +26,6 @@ router
   .patch(protect, updateSavestate)
   .delete(protect, deleteSavestate);
 router.route("/character/:character").get(getCharacterSavestates);
-router.route("/user/:id").get(getSavestatesByUser);
+router.route("/user/:id").get(protect, getSavestatesByUser);
 
 module.exports = router;
