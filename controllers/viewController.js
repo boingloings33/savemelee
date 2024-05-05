@@ -77,7 +77,7 @@ exports.getSavestate = catchAsync(async (req, res, next) => {
     url: `${req.protocol}://${req.get("host")}/api/v1/savestates/${req.params.savestateId}`,
   });
 
-  const userSavestate = result.data.doc;
+  const userSavestate = result.data.savestate;
 
   res.status(200).render("shareSavestate", {
     title: "Share Savestate",

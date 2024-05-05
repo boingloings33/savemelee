@@ -553,6 +553,7 @@ tbody > tr:nth-of-type(even) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-color: var(--gamecube-color);
   padding: 3rem;
   border-radius: 8px;
@@ -781,8 +782,16 @@ tbody > tr:nth-of-type(even) {
 /* MEDIA QUERIES */
 
 @media (max-width: 1740px) {
+  
   .margin__borders {
     margin: 0 14vw;
+  }
+  .share__savestate__page {
+    margin: 0 auto;
+    width: fit-content;
+    justify-content: center;
+    margin-top: 4rem;
+    color: white;
   }
   .footer__group {
     margin: 0 14vw;
