@@ -55,7 +55,6 @@ exports.getSavestate = factory.getOne(Savestate);
 exports.updateSavestate = factory.updateOne(Savestate);
 exports.deleteSavestate = catchAsync(async (req, res, next) => {
   const savestate = await Savestate.findByIdAndDelete(req.params.savestateId);
-  console.log(savestate);
   const bucketInput = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key: savestate.file,
@@ -73,7 +72,7 @@ exports.deleteSavestate = catchAsync(async (req, res, next) => {
   });
 });
 exports.deleteAllSavestatesByUser = catchAsync(async (req, res, next) => {
-  const savestates = await Savestate.find({ user: { _id: req.params.savestateId } });
+  const savestates = await Savestate.find({ user: { _id: req.params.id } });
   savestates.forEach((savestate) => {
     const bucketInput = {
       Bucket: process.env.AWS_S3_BUCKET_NAME,
@@ -83,7 +82,7 @@ exports.deleteAllSavestatesByUser = catchAsync(async (req, res, next) => {
     s3.send(bucketCommand);
   });
   const deleteSavestates = await Savestate.deleteMany({
-    user: { _id: req.params.savestateId },
+    user: { _id: req.params.id },
   });
 
   if (!deleteSavestates) {
