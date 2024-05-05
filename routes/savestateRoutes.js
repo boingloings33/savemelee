@@ -21,7 +21,7 @@ router
   .post(protect, uploadGCIFile, createSavestate);
 
 router
-  .route("/:id")
+  .route("/:savestateId")
   .get(getSavestate)
   .patch(protect, updateSavestate)
   .delete(protect, deleteSavestate);

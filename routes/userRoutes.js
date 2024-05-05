@@ -36,7 +36,7 @@ router.use(protect);
 router.patch("/updateMyPassword", updatePassword);
 router.get("/me", getMe, getUser);
 router.patch("/updateMe", updateMe);
-router.delete("/deleteMe/:id", deleteAllSavestatesByUser, deleteMe);
+router.delete("/deleteMe/:id",  deleteAllSavestatesByUser, deleteMe);
 
 router.use(restrictTo("admin"));
 router.route("/").get(getAllUsers);
