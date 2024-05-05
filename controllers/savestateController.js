@@ -51,8 +51,20 @@ exports.createSavestate = catchAsync(async (req, res, next) => {
   });
 });
 exports.getAllSavestates = factory.getAll(Savestate);
-exports.getSavestate = factory.getOne(Savestate);
 exports.updateSavestate = factory.updateOne(Savestate);
+exports.getSavestate = catchAsync(async (req,res,next) => {
+  let query = Savestate.findById(req.params.savestateId);
+  const savestate = await query
+
+  if (!savestate) {
+    return next(new AppError("No savestate found with that ID", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    results: savestate.length,
+    doc,
+  });
+})
 exports.deleteSavestate = catchAsync(async (req, res, next) => {
   const savestate = await Savestate.findByIdAndDelete(req.params.savestateId);
   const bucketInput = {

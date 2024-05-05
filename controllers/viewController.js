@@ -74,7 +74,7 @@ exports.getUploadSavestate = catchAsync(async (req, res, next) => {
 exports.getSavestate = catchAsync(async (req, res, next) => {
   const result = await axios({
     method: "GET",
-    url: `${req.protocol}://${req.get("host")}/api/v1/savestates/${req.params.id}`,
+    url: `${req.protocol}://${req.get("host")}/api/v1/savestates/${req.params.savestateId}`,
   });
 
   const userSavestate = result.data.doc;
