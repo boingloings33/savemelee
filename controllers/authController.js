@@ -76,6 +76,7 @@ exports.logout = (req, res) => {
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check if it exists
   let token;
+
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -89,12 +90,19 @@ exports.protect = catchAsync(async (req, res, next) => {
       new AppError("You are not logged in! Please log in to get access.", 401)
     );
   }
-
   // 2) Verification token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  if (req.params.id) {
+    if (req.params.id !== decoded.id) {
+      return next(
+        new AppError("You do not have permission for this task!", 401)
+      );
+    }
+  }
 
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
+
   if (!currentUser) {
     return next(
       new AppError("The user belonging to this token no longer exists.", 401)
