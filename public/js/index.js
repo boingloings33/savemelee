@@ -293,6 +293,7 @@ if (savestateByUserPage) {
 
   editButton.forEach((btn, i) => {
     btn.addEventListener("click", () => {
+      console.log("test");
       updateDialog.showModal();
       updateForm.reset();
       updateDialog.returnValue = "none";
