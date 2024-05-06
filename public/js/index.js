@@ -6,7 +6,7 @@ import { deleteAccount } from "./deleteAccount";
 import { showAlert } from "./alert";
 import { deleteSavestate } from "./deleteSavestate";
 import { emailReport } from "./emailReport";
-import { updateSavestate } from "../../controllers/savestateController";
+import { updateSavestate } from "./updateSavestate";
 
 const reportBug = document.querySelector(".report__bug");
 const homePage = document.querySelector(".home__page");
@@ -183,6 +183,7 @@ if (userDataForm) {
 if (updatePasswordForm) {
 }
 if (uploadSavestatePage) {
+  const submitButton = document.querySelector(".btn");
   const savestateForm = document.querySelector(".form");
   const files = document.getElementById("file");
   const title = document.getElementById("savestate__title");
@@ -251,6 +252,16 @@ if (uploadSavestatePage) {
     title.disabled = false;
     removeFiles.classList.add("hidden");
   });
+
+  title.addEventListener("input", () => {
+    charactersRemaining.textContent = `${title.value.length} / 30`;
+    if (charactersRemaining.textContent[0] !== "0") {
+      submitButton.classList.remove("unactive__btn");
+    }
+    if (charactersRemaining.textContent[0] === "0") {
+      submitButton.classList.add("unactive__btn");
+    }
+  });
 }
 
 if (deleteAccountForm) {
@@ -265,17 +276,43 @@ if (deleteAccountForm) {
   });
 }
 
-console.log('help');
-
 if (savestateByUserPage) {
+  const title = document.getElementById("savestate__title");
+  const description = document.getElementById("savestate__description");
+  const charactersRemaining = document.getElementById("characters__remaining");
+  const descriptionCharactersRemaining = document.getElementById(
+    "desc__characters__remaining"
+  );
   const deleteButton = document.querySelectorAll(".delete__btn");
   const shareButton = document.querySelectorAll(".share__btn");
   const editButton = document.querySelectorAll(".edit__btn");
   const updateDialog = document.querySelector(".update__dialog");
   const updateForm = document.querySelector(".update__form");
-  const closeIcon = document.querySelector(".close__icon")
+  const closeIcon = document.querySelector(".close__icon");
   const userId = document.querySelector(".user__id").dataset.token;
   const protocol = location.protocol + "//" + location.host;
+  const submitButton = document.querySelector(".dialog__submit");
+  submitButton.disabled = true;
+  let selectedSavestate = "";
+  let rowIndex = "";
+
+  charactersRemaining.textContent = "0 / 30";
+  descriptionCharactersRemaining.textContent = " 0 / 120";
+
+  title.addEventListener("input", () => {
+    charactersRemaining.textContent = `${title.value.length} / 30`;
+    if (charactersRemaining.textContent[0] !== "0") {
+      submitButton.classList.remove("unactive__btn");
+    }
+    if (charactersRemaining.textContent[0] === "0") {
+      submitButton.classList.add("unactive__btn");
+    }
+  });
+
+  description.addEventListener("input", () => {
+    descriptionCharactersRemaining.textContent = `${description.value.length} / 60`;
+  });
+
   shareButton.forEach((btn) => {
     btn.addEventListener("click", () => {
       navigator.clipboard.writeText(
@@ -293,22 +330,22 @@ if (savestateByUserPage) {
 
   editButton.forEach((btn, i) => {
     btn.addEventListener("click", () => {
-      console.log("test");
       updateDialog.showModal();
       updateForm.reset();
       updateDialog.returnValue = "none";
+      selectedSavestate = btn.dataset.token;
+      rowIndex = i;
     });
   });
   updateForm.addEventListener("submit", () => {
-    console.log("submitted");
     const data = {
       character: updateForm.characters.value,
-      characterAgainst: updateForm.characterAgainst.value,
+      characterAgainst: updateForm.character__against.value,
       title: updateForm.title.value,
-      description: updateForm.description.value
-    }
-    updateSavestate(data)
-  })
+      description: updateForm.description.value,
+    };
+    updateSavestate(data, selectedSavestate, rowIndex);
+  });
   closeIcon.addEventListener("click", () => {
     updateDialog.close();
   });

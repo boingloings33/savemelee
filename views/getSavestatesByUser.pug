@@ -40,7 +40,7 @@ block content
               )
               p#desc__characters__remaining
             .form__group
-              button(type="submit").dialog__submit.btn.btn__yellow Submit &nbsp
+              button(type="submit").dialog__submit.btn.btn__yellow.unactive__btn Submit &nbsp
       table.savestate__table
         thead
           tr.savestate__row
@@ -54,9 +54,9 @@ block content
         tbody
           each savestate in userSavestates
             tr.savestate_row(data-token=`${savestate._id}`)
-              td.savestate__item #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
-              td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
-              td.savestate__item #{ savestate.title }
+              td.savestate__item.character__as #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
+              td.savestate__item.character__against #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
+              td.savestate__item.savestate__title #{ savestate.title }
               td.savestate__item.savestate__description #{ savestate.description }
               td.savestate__item
                 a(href=`/gci/${savestate.file}`, download) Download
@@ -64,10 +64,10 @@ block content
                 a.edit__btn(data-token=`${savestate._id}`)
                   svg.icon
                     use(xlink:href="/img/icons.svg#icon-edit")
-                a.delete__btn(data-token=`${savestate._id}`)
-                  svg.icon
-                    use(xlink:href="/img/icons.svg#icon-delete")
                 a.share__btn(data-token=`${savestate._id}`)
                   svg.icon
                     use(xlink:href="/img/icons.svg#icon-share")   
+                a.delete__btn(data-token=`${savestate._id}`)
+                  svg.icon
+                    use(xlink:href="/img/icons.svg#icon-delete")
     .user__id(data-token=`${user.id}`)

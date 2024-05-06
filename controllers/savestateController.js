@@ -53,10 +53,14 @@ exports.createSavestate = catchAsync(async (req, res, next) => {
 exports.getAllSavestates = factory.getAll(Savestate);
 exports.updateSavestate = catchAsync(async (req, res, next) => {
   console.log(req.body);
-  const doc = await Savestate.findByIdAndUpdate(req.params.savestateId, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const doc = await Savestate.findByIdAndUpdate(
+    req.params.savestateId,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!doc) {
     return next(new AppError("No document found with that ID", 404));
@@ -68,9 +72,9 @@ exports.updateSavestate = catchAsync(async (req, res, next) => {
     data: { data: doc },
   });
 });
-exports.getSavestate = catchAsync(async (req,res,next) => {
+exports.getSavestate = catchAsync(async (req, res, next) => {
   let query = Savestate.findById(req.params.savestateId);
-  const savestate = await query
+  const savestate = await query;
 
   console.log(savestate);
 
@@ -82,7 +86,7 @@ exports.getSavestate = catchAsync(async (req,res,next) => {
     results: savestate.length,
     savestate,
   });
-})
+});
 exports.deleteSavestate = catchAsync(async (req, res, next) => {
   const savestate = await Savestate.findByIdAndDelete(req.params.savestateId);
   const bucketInput = {

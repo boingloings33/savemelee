@@ -409,6 +409,12 @@ tbody > tr:nth-of-type(even) {
   color: #b4b4b4;
 }
 
+.unactive__btn {
+  pointer-events: none;
+  color: var(--charcoal);
+  background-color: grey;
+}
+
 .icon {
   width: 20px;
   margin-top: 6px;
