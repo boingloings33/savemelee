@@ -2519,6 +2519,7 @@
       if (files.files.length > 1) {
         title.value = "";
         title.disabled = true;
+        submitButton.classList.remove("unactive__btn");
         charactersRemaining.textContent = "0 / 30";
         charactersRemaining.textContent = ` ${title.value.length} / 30`;
       }
@@ -2561,6 +2562,7 @@
       files.value = "";
       title.disabled = false;
       removeFiles.classList.add("hidden");
+      submitButton.classList.add("unactive__btn");
     });
     title.addEventListener("input", () => {
       charactersRemaining.textContent = `${title.value.length} / 30`;
