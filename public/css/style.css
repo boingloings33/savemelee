@@ -142,7 +142,8 @@ input:-webkit-autofill:focus {
   background-color: #f7f7f7;
   border-bottom: 1px solid var(--white-alt);
   border-top: 4px solid var(--gamecube-color);
-  position: sticky; top: 0;
+  position: sticky;
+  top: 0;
 }
 
 .header__logo img {
@@ -782,7 +783,6 @@ tbody > tr:nth-of-type(even) {
 /* MEDIA QUERIES */
 
 @media (max-width: 1740px) {
-  
   .margin__borders {
     margin: 0 14vw;
   }

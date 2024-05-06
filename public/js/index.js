@@ -270,7 +270,7 @@ if (savestateByUserPage) {
   const editButton = document.querySelectorAll(".edit__btn");
   const updateDialog = document.querySelector(".update__dialog");
   const updateForm = document.querySelector(".updateForm");
-  const closeIcon = document.querySelector(".close__icon")
+  const closeIcon = document.querySelector(".close__icon");
   const userId = document.querySelector(".user__id").dataset.token;
   const protocol = location.protocol + "//" + location.host;
   shareButton.forEach((btn) => {
@@ -290,7 +290,7 @@ if (savestateByUserPage) {
 
   editButton.forEach((btn, i) => {
     btn.addEventListener("click", () => {
-      console.log('test');
+      console.log("test");
       updateDialog.showModal();
       updateForm.reset();
       updateDialog.returnValue = "none";
