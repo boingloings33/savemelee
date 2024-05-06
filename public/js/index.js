@@ -292,7 +292,6 @@ if (savestateByUserPage) {
   const userId = document.querySelector(".user__id").dataset.token;
   const protocol = location.protocol + "//" + location.host;
   const submitButton = document.querySelector(".dialog__submit");
-  submitButton.disabled = true;
   let selectedSavestate = "";
   let rowIndex = "";
 
