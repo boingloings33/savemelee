@@ -291,7 +291,6 @@ if (savestateByUserPage) {
   const updateDialog = document.querySelector(".update__dialog");
   const updateForm = document.querySelector(".update__form");
   const closeIcon = document.querySelector(".close__icon");
-  const userId = document.querySelector(".user__id").dataset.token;
   const protocol = location.protocol + "//" + location.host;
   const submitButton = document.querySelector(".dialog__submit");
   let selectedSavestate = "";
@@ -323,19 +322,19 @@ if (savestateByUserPage) {
     });
   });
 
-  deleteButton.forEach((btn) => {
+  deleteButton.forEach((btn, i) => {
     btn.addEventListener("click", () => {
-      deleteSavestate(btn.dataset.token, userId);
+      deleteSavestate(btn.dataset.token);
     });
   });
 
   editButton.forEach((btn, i) => {
     btn.addEventListener("click", () => {
+      rowIndex = i;
       updateDialog.showModal();
       updateForm.reset();
       updateDialog.returnValue = "none";
       selectedSavestate = btn.dataset.token;
-      rowIndex = i;
     });
   });
   updateForm.addEventListener("submit", () => {

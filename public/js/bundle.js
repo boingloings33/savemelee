@@ -2274,7 +2274,7 @@
   };
 
   // public/js/deleteSavestate.js
-  var deleteSavestate = async (savesataeId, userId) => {
+  var deleteSavestate = async (savesataeId) => {
     {
       try {
         await axios_default({
@@ -2282,9 +2282,7 @@
           url: `/api/v1/savestates/${savesataeId}`
         });
         showAlert("success", "Savestate Succesfully Deleted");
-        window.setTimeout(() => {
-          location.assign(`/user-savestates/${userId}`);
-        }, 1500);
+        location.reload();
       } catch (err) {
         showAlert("error", err.response.data.message);
       }
@@ -2596,7 +2594,6 @@
     const updateDialog = document.querySelector(".update__dialog");
     const updateForm = document.querySelector(".update__form");
     const closeIcon = document.querySelector(".close__icon");
-    const userId = document.querySelector(".user__id").dataset.token;
     const protocol = location.protocol + "//" + location.host;
     const submitButton = document.querySelector(".dialog__submit");
     let selectedSavestate = "";
@@ -2623,18 +2620,18 @@
         showAlert("success", "Link added to the clipboard!");
       });
     });
-    deleteButton.forEach((btn) => {
+    deleteButton.forEach((btn, i) => {
       btn.addEventListener("click", () => {
-        deleteSavestate(btn.dataset.token, userId);
+        deleteSavestate(btn.dataset.token);
       });
     });
     editButton.forEach((btn, i) => {
       btn.addEventListener("click", () => {
+        rowIndex = i;
         updateDialog.showModal();
         updateForm.reset();
         updateDialog.returnValue = "none";
         selectedSavestate = btn.dataset.token;
-        rowIndex = i;
       });
     });
     updateForm.addEventListener("submit", () => {

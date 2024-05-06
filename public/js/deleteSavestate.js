@@ -1,7 +1,7 @@
 import axios from "axios";
 import { showAlert } from "./alert";
 
-export const deleteSavestate = async (savesataeId, userId) => {
+export const deleteSavestate = async (savesataeId) => {
   {
     try {
       await axios({
@@ -9,9 +9,7 @@ export const deleteSavestate = async (savesataeId, userId) => {
         url: `/api/v1/savestates/${savesataeId}`,
       });
       showAlert("success", "Savestate Succesfully Deleted");
-      window.setTimeout(() => {
-        location.assign(`/user-savestates/${userId}`);
-      }, 1500);
+      location.reload();
     } catch (err) {
       showAlert("error", err.response.data.message);
     }
