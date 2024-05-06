@@ -9,8 +9,20 @@ block content
       dialog.update__dialog
           svg.close__icon
             use(xlink:href=`/img/icons.svg#icon-x`)
-          h1.update__form__title Update savestate
           form.update__form(method='dialog')
+            .form__group
+              label.form__label Character As
+              select#characters.select__box(name="characters", autocomplete="off")
+                each character in charactersAlphabetized  
+                  option(value=`${character}`) #{ character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
+            .form__group
+              label.form__label Character Against
+              select#character__against.select__box(
+                name="character__against",
+                autocomplete="off"
+              )
+                each character in charactersAlphabetized  
+                  option(value=`${character}`) #{ character[0].toUpperCase() + character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
             .form__group
               label.form__label(for="Title") Title
               input#savestate__title(
@@ -27,7 +39,8 @@ block content
                 autocomplete="off"
               )
               p#desc__characters__remaining
-            button(type="submit").dialog__submit.btn.btn__yellow Submit &nbsp
+            .form__group
+              button(type="submit").dialog__submit.btn.btn__yellow Submit &nbsp
       table.savestate__table
         thead
           tr.savestate__row

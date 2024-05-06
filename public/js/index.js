@@ -6,6 +6,7 @@ import { deleteAccount } from "./deleteAccount";
 import { showAlert } from "./alert";
 import { deleteSavestate } from "./deleteSavestate";
 import { emailReport } from "./emailReport";
+import { updateSavestate } from "../../controllers/savestateController";
 
 const reportBug = document.querySelector(".report__bug");
 const homePage = document.querySelector(".home__page");
@@ -264,12 +265,14 @@ if (deleteAccountForm) {
   });
 }
 
+console.log('help');
+
 if (savestateByUserPage) {
   const deleteButton = document.querySelectorAll(".delete__btn");
   const shareButton = document.querySelectorAll(".share__btn");
   const editButton = document.querySelectorAll(".edit__btn");
   const updateDialog = document.querySelector(".update__dialog");
-  const updateForm = document.querySelector(".updateForm");
+  const updateForm = document.querySelector(".update__form");
   const closeIcon = document.querySelector(".close__icon")
   const userId = document.querySelector(".user__id").dataset.token;
   const protocol = location.protocol + "//" + location.host;
@@ -290,12 +293,21 @@ if (savestateByUserPage) {
 
   editButton.forEach((btn, i) => {
     btn.addEventListener("click", () => {
-      console.log('test');
       updateDialog.showModal();
       updateForm.reset();
       updateDialog.returnValue = "none";
     });
   });
+  updateForm.addEventListener("submit", () => {
+    console.log("submitted");
+    const data = {
+      character: updateForm.characters.value,
+      characterAgainst: updateForm.characterAgainst.value,
+      title: updateForm.title.value,
+      description: updateForm.description.value
+    }
+    updateSavestate(data)
+  })
   closeIcon.addEventListener("click", () => {
     updateDialog.close();
   });

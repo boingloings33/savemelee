@@ -51,7 +51,23 @@ exports.createSavestate = catchAsync(async (req, res, next) => {
   });
 });
 exports.getAllSavestates = factory.getAll(Savestate);
-exports.updateSavestate = factory.updateOne(Savestate);
+exports.updateSavestate = catchAsync(async (req, res, next) => {
+  console.log(req.body);
+  const doc = await Savestate.findByIdAndUpdate(req.params.savestateId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!doc) {
+    return next(new AppError("No document found with that ID", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    results: doc.length,
+    data: { data: doc },
+  });
+});
 exports.getSavestate = catchAsync(async (req,res,next) => {
   let query = Savestate.findById(req.params.savestateId);
   const savestate = await query

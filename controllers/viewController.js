@@ -95,5 +95,6 @@ exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
   res.status(200).render("getSavestatesByUser", {
     title: "Your Savestates",
     userSavestates,
+    charactersAlphabetized
   });
 });

@@ -364,7 +364,6 @@ input:-webkit-autofill:focus {
 /* CHARACTER PAGE */
 
 .character__page {
-  margin-top: 1rem;
   border-bottom: solid 1px var(--white-alt);
   border-top: solid 1px var(--white-alt);
 }
@@ -782,15 +781,14 @@ tbody > tr:nth-of-type(even) {
 /* MEDIA QUERIES */
 
 @media (max-width: 1740px) {
-  
-  .margin__borders {
-    margin: 0 14vw;
+  #account__page {
+    transform: scale(1);
   }
   .share__savestate__page {
     margin: 0 auto;
     width: fit-content;
     justify-content: center;
-    margin-top: 4rem;
+    margin-top: 3rem;
     color: white;
   }
   .footer__group {
