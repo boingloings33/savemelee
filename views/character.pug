@@ -29,7 +29,7 @@ block content
         thead
           tr.savestate__row
             th(scope="col") Character As
-            th(scope="col") Character Against
+            th(scope="col") Character Vs
             th(scope="col") Title
             th(scope="col") Description
             th(scope="col") File
@@ -46,7 +46,8 @@ block content
               td.savestate__item
                 a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download) Download
               if (savestate.user)
-                td.savestate__item.icon__group #{ savestate.user.username }
+                td.savestate__item.uploaded__by.icon__group
+                  span.username #{ savestate.user.username }
                   span
                     a.report__btn(data-token=`${savestate._id}`)
                       svg.icon

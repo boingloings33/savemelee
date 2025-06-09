@@ -250,17 +250,16 @@ input:-webkit-autofill:focus {
   cursor: pointer;
   transition: 0.1s;
   margin: 2px;
+  border-radius: 6px;
 }
 
 .character__box:hover {
-  background-color: #ebd6ec;
   transition: 0.25s;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.247);
   transform: scale(1.2);
 }
 
 .character__box:active {
-  background-color: #d78edb;
   transform: scale(1);
   border-radius: 4px;
 }
@@ -446,7 +445,7 @@ tbody > tr:nth-of-type(even) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 28px;
+  height: 24px;
   overflow: hidden;
 }
 .no__character {
@@ -719,14 +718,7 @@ tbody > tr:nth-of-type(even) {
   border-radius: 10px;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.288);
   padding: 3.5rem;
-  background-image: linear-gradient(
-    to right top,
-    #6545b2,
-    #6c4eb3,
-    #7256b5,
-    #795fb6,
-    #7f67b7
-  );
+  background-image: linear-gradient(to right top, #6545b2, #6c4eb3, #7256b5, #795fb6, #7f67b7);
   color: white;
   font-size: 24px;
 }
@@ -756,14 +748,7 @@ tbody > tr:nth-of-type(even) {
   border-radius: 10px;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.288);
   padding: 3.5rem;
-  background-image: linear-gradient(
-    to right top,
-    #6545b2,
-    #6c4eb3,
-    #7256b5,
-    #795fb6,
-    #7f67b7
-  );
+  background-image: linear-gradient(to right top, #6545b2, #6c4eb3, #7256b5, #795fb6, #7f67b7);
 }
 
 /* NO SAVESTATES PAGE */

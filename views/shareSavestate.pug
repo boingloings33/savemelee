@@ -4,4 +4,7 @@ block content
   section.share__savestate__page
     .share__box
       h1.heading__secondary #{ userSavestate.user.username }'s Savestate: #{ userSavestate.title }
-      a.btn.upload__btn(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${userSavestate.file.replaceAll(" ", "+")}`, download) Download
+      a.btn.upload__btn(
+        href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${userSavestate.file.replaceAll(" ", "+")}`,
+        download
+      ) Download

@@ -19,9 +19,7 @@ const signupForm = document.getElementById("signup__form");
 const deleteAccountForm = document.querySelector(".delete__account__form");
 const logOutBtn = document.querySelector(".logout__btn");
 
-const savestateByUserPage = document.querySelector(
-  ".savestate__by__user__page"
-);
+const savestateByUserPage = document.querySelector(".savestate__by__user__page");
 
 if (homePage) {
   const sheikBox = document.querySelectorAll(".character__box")[15];
@@ -76,12 +74,13 @@ if (homePage) {
           img.classList.add("fade");
         }
       },
-      10
+      0.2
     );
   });
 }
 if (characterPage) {
   let reportedSavestate = "";
+  const username = document.querySelectorAll(".username");
   const reportButton = document.querySelectorAll(".report__btn");
   const reportDialog = document.querySelector(".report__dialog");
   const reportForm = document.querySelector(".report__form");
@@ -92,22 +91,22 @@ if (characterPage) {
   const protocol = location.protocol + "//" + location.host;
   const pageCounter = document.querySelector(".page__counter");
   const currentUrlPage = window.location.href.slice(-1);
-  const characterToken =
-    document.querySelector(".character__token").dataset.token;
-  const savesateAmountToken = Number(
-    document.querySelector(".savestate__amount__token").dataset.token
-  );
+  const characterToken = document.querySelector(".character__token").dataset.token;
+  const savesateAmountToken = Number(document.querySelector(".savestate__amount__token").dataset.token);
 
   let savestateRowAmount = document.querySelectorAll("tr.savestate_row").length;
 
   pageCounter.textContent = `${currentUrlPage}/${Math.ceil(savesateAmountToken / 20)}`;
 
-  if (
-    savestateRowAmount < 20 ||
-    savestateRowAmount * currentUrlPage === savesateAmountToken
-  ) {
+  if (savestateRowAmount < 20 || savestateRowAmount * currentUrlPage === savesateAmountToken) {
     nextButton.classList.add("unactive");
   }
+
+  username.forEach((name) => {
+    if (name.textContent.length > 8) {
+      name.textContent = `${name.textContent.slice(0, 7)}...`;
+    }
+  });
 
   if (Number(currentUrlPage) === 1) {
     prevButton.classList.add("unactive");
@@ -118,11 +117,10 @@ if (characterPage) {
   prevButton.addEventListener("click", () => {
     prevButton.href = `/character/${characterToken}/${Number(currentUrlPage) - 1}`;
   });
+
   shareButton.forEach((btn) => {
     btn.addEventListener("click", () => {
-      navigator.clipboard.writeText(
-        `${protocol}/share-savestate/${btn.dataset.token}`
-      );
+      navigator.clipboard.writeText(`${protocol}/share-savestate/${btn.dataset.token}`);
       showAlert("success", "Link added to the clipboard!");
     });
   });
@@ -191,9 +189,7 @@ if (uploadSavestatePage) {
   const removeFiles = document.querySelector(".remove__files");
   const formSection = document.querySelector(".form__section");
   const charactersRemaining = document.getElementById("characters__remaining");
-  const descriptionCharactersRemaining = document.getElementById(
-    "desc__characters__remaining"
-  );
+  const descriptionCharactersRemaining = document.getElementById("desc__characters__remaining");
   charactersRemaining.textContent = "0 / 30";
   descriptionCharactersRemaining.textContent = " 0 / 120";
 
@@ -218,10 +214,7 @@ if (uploadSavestatePage) {
     Array.from(files.files).forEach((file, i) => {
       const form = new FormData();
       form.append("character", document.getElementById("characters").value);
-      form.append(
-        "characterAgainst",
-        document.getElementById("character__against").value
-      );
+      form.append("characterAgainst", document.getElementById("character__against").value);
       form.append("user", document.querySelector(".user__id").dataset.token);
       if (files.files.length === 1) {
         form.append("title", title.value);
@@ -270,8 +263,7 @@ if (deleteAccountForm) {
   deleteAccountForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const input = document.getElementById("delete__account__input").value;
-    const userId = document.querySelector(".delete__account__form").dataset
-      .token;
+    const userId = document.querySelector(".delete__account__form").dataset.token;
 
     await deleteAccount(input, userId);
     document.getElementById("delete-account-input").value = "";
@@ -282,9 +274,7 @@ if (savestateByUserPage) {
   const title = document.getElementById("savestate__title");
   const description = document.getElementById("savestate__description");
   const charactersRemaining = document.getElementById("characters__remaining");
-  const descriptionCharactersRemaining = document.getElementById(
-    "desc__characters__remaining"
-  );
+  const descriptionCharactersRemaining = document.getElementById("desc__characters__remaining");
   const deleteButton = document.querySelectorAll(".delete__btn");
   const shareButton = document.querySelectorAll(".share__btn");
   const editButton = document.querySelectorAll(".edit__btn");
@@ -315,9 +305,7 @@ if (savestateByUserPage) {
 
   shareButton.forEach((btn) => {
     btn.addEventListener("click", () => {
-      navigator.clipboard.writeText(
-        `${protocol}/share-savestate/${btn.dataset.token}`
-      );
+      navigator.clipboard.writeText(`${protocol}/share-savestate/${btn.dataset.token}`);
       showAlert("success", "Link added to the clipboard!");
     });
   });
