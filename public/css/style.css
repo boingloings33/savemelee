@@ -84,8 +84,8 @@ input:-webkit-autofill:focus {
 
 .btn__yellow {
   background-color: var(--sharp-yellow);
-  margin-top: 0.75rem;
-  margin-right: 0.5rem;
+  /* margin-top: 0.75rem;
+  margin-right: 0.5rem; */
 }
 
 .btn__yellow:hover {
@@ -253,6 +253,10 @@ input:-webkit-autofill:focus {
   border-radius: 6px;
 }
 
+.character__box:not(.fade) {
+  pointer-events: none;
+}
+
 .character__box:hover {
   transition: 0.25s;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.247);
@@ -359,6 +363,9 @@ input:-webkit-autofill:focus {
 .form__group {
   position: relative;
 }
+.form__group button {
+  margin-right: 1rem;
+}
 
 .homepage__divider {
   border: none;
@@ -390,22 +397,59 @@ tbody > tr:nth-of-type(even) {
   margin: 0 auto;
   width: 100%;
 }
+
+.savestate__item a {
+  text-decoration: none;
+  /* background-color: var(--sharp-yellow); */
+  border-radius: 6px;
+  color: var(--gamecube-color);
+  padding: 0.15rem;
+}
+
+.savestate__item a:hover {
+  color: var(--sharp-yellow-hover);
+}
+
+.filter__group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.btn__fg {
+  font-size: 12px;
+  padding: 0.25rem 0.55rem;
+  background-color: var(--sharp-yellow);
+  color: var(--charcoal);
+}
+
+.btn__fg:hover {
+  background-color: var(--sharp-yellow-hover);
+}
+
 .page__btns {
   display: flex;
   justify-content: flex-end;
   bottom: 0;
   background-color: var(--gamecube-color);
-  color: white;
 }
 
 .page__btn {
   cursor: pointer;
   margin-right: 1.5rem;
   margin-bottom: 0.25rem;
+  color: white;
+}
+
+.page__btn:hover {
+  color: var(--sharp-yellow);
 }
 
 .page__counter {
   margin-right: 1.5rem;
+  color: white;
 }
 
 .unactive {

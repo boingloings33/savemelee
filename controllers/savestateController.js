@@ -53,14 +53,10 @@ exports.createSavestate = catchAsync(async (req, res, next) => {
 exports.getAllSavestates = factory.getAll(Savestate);
 exports.updateSavestate = catchAsync(async (req, res, next) => {
   console.log(req.body);
-  const doc = await Savestate.findByIdAndUpdate(
-    req.params.savestateId,
-    req.body,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const doc = await Savestate.findByIdAndUpdate(req.params.savestateId, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   if (!doc) {
     return next(new AppError("No document found with that ID", 404));
@@ -142,13 +138,20 @@ exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
     return next(new AppError("Character name invalid"), 400);
   }
 
-  const features = new APIFeatures(
-    Savestate.find({ character: req.params.character }),
-    req.query
-  )
-    .paginate()
-    .sort();
-  const savestates = await features.query;
+  // Step 1: Get all matching savestates for the character and populate the user
+  let query = Savestate.find({ character: req.params.character }).populate("user");
+  const features = new APIFeatures(query, req.query).paginate().sort();
+
+  let savestates = await features.query;
+
+  // Step 2: Apply additional filters from req.query (manual post-filtering)
+  if (req.query.characterVs) {
+    savestates = savestates.filter((s) => s.characterAgainst === req.query.characterVs);
+  }
+
+  if (req.query.uploadedBy) {
+    savestates = savestates.filter((s) => s.user?.username === req.query.uploadedBy);
+  }
 
   res.status(200).json({
     status: "success",

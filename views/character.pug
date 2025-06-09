@@ -3,6 +3,22 @@ extends base
 block content
   if (characterSavestate.length > 0)
     section.margin__borders.character__page
+      form(method="GET", action=`/character/${character}/1`)
+        .filter__group
+          label(for="characterAgainst") Character Vs:
+          select(name="characterAgainst")
+            option(value="") All Characters
+            if allCharacters
+              each vs in allCharacters
+                option(value=vs selected=(characterAgainst === vs) ? 'selected' : false)= vs
+
+          label(for="uploadedBy") Uploaded By:
+          select(name="uploadedBy")
+            option(value="") All Uploaders
+            if allUploaders
+              each u in allUploaders
+                option(value=u selected=(uploadedBy === u) ? 'selected' : false)= u
+          button(type="submit").btn.btn__fg Apply Filters
       dialog.report__dialog
         svg.close__icon
           use(xlink:href=`/img/icons.svg#icon-x`)
@@ -58,8 +74,13 @@ block content
               if (!savestate.user)
                 td.savestate__item.icon__group --ACCOUNT DELETED--
       .page__btns
-        a.page__btn.page__btn__prev previous page
-        a.page__btn.page__btn__next next page
+        a.page__btn.page__btn__prev(
+        href=`/character/${character}/${prevPage}?characterAgainst=${characterAgainst}&uploadedBy=${uploadedBy}`
+        ) previous page
+
+        a.page__btn.page__btn__next(
+        href=`/character/${character}/${nextPage}?characterAgainst=${characterAgainst}&uploadedBy=${uploadedBy}`
+        ) next page
         p.page__counter --PAGENUMBERS--
     .character__token(data-token=`${characterSavestate[0].character}`)
     .savestate__amount__token(data-token=`${savestateAmount}`)

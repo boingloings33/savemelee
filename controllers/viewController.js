@@ -3,40 +3,70 @@ const axios = require("axios");
 const catchAsync = require("../utils/catchAsync");
 const Savestate = require("../models/savestateModel");
 const characters = Savestate.schema.path("character").enumValues;
-const charactersAlphabetized = [...characters]
-  .sort()
-  .filter((string) => string !== "filler");
+const charactersAlphabetized = [...characters].sort().filter((string) => string !== "filler");
 // const stages = Savestate.schema.path("stage").enumValues.sort();
 
 exports.getHome = catchAsync(async (req, res, next) => {
-  res.status(200).render("home", {
-    title: "Home",
-    characters,
-  });
-});
-
-exports.getCharacterPage = async (req, res, next) => {
   try {
-    const page = req.params.page;
-    const result = await axios({
-      method: "GET",
-      url: `${req.protocol}://${req.get("host")}/api/v1/savestates/character/${req.params.character}?page=${page}&limit=20`,
-    });
-    const characterSavestate = result.data.savestates;
-
-    const unfilteredResult = await axios({
-      method: "GET",
-      url: `${req.protocol}://${req.get("host")}/api/v1/savestates/character/${req.params.character}`,
-    });
-    const savestateAmount = unfilteredResult.data.savestates.length;
-
-    res.status(200).render("character", {
-      title: req.params.character,
-      characterSavestate,
-      savestateAmount,
+    res.status(200).render("home", {
+      title: "Home",
+      characters,
     });
   } catch (err) {
-    console.log(err);
+    console.error("API Error:", err.response?.data || err.message || err);
+    res.status(500).render("error", { message: "Failed to load home page" });
+  }
+});
+exports.getCharacterPage = async (req, res, next) => {
+  try {
+    let page = parseInt(req.params.page);
+    if (Number.isNaN(page)) page = 1;
+    const { characterAgainst, uploadedBy } = req.query;
+
+    // Build query string
+    let query = `page=${page}&limit=20`;
+    if (characterAgainst) query += `&characterVs=${characterAgainst}`;
+    if (uploadedBy) query += `&uploadedBy=${uploadedBy}`;
+
+    // Get filtered savestates
+    const result = await axios.get(
+      `${req.protocol}://${req.get("host")}/api/v1/savestates/character/${req.params.character}?${query}`
+    );
+    const characterSavestate = result.data.savestates;
+
+    // Get unfiltered list to build dropdowns
+    const unfilteredResult = await axios.get(
+      `${req.protocol}://${req.get("host")}/api/v1/savestates/character/${req.params.character}`
+    );
+    const allSavestates = unfilteredResult.data.savestates;
+    const savestateAmount = allSavestates.length;
+
+    // Safely extract filter options
+    const allCharacters = [...new Set(allSavestates.map((s) => s.characterAgainst))];
+    const allUploaders = [...new Set(allSavestates.map((s) => s.user?.username).filter(Boolean))];
+
+    const pageNum = Number(req.params.page) || 1;
+    const limit = 20;
+
+    const prevPage = pageNum > 1 ? pageNum - 1 : 1;
+    const nextPage = pageNum + 1; // Optionally restrict to max pages
+
+    // Render page with data
+    res.status(200).render("character", {
+      title: req.params.character,
+      character: req.params.character,
+      characterSavestate,
+      allCharacters,
+      allUploaders,
+      characterAgainst,
+      uploadedBy,
+      savestateAmount,
+      prevPage,
+      nextPage,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).render("error", { message: "Failed to load character page" });
   }
 };
 
@@ -95,6 +125,6 @@ exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
   res.status(200).render("getSavestatesByUser", {
     title: "Your Savestates",
     userSavestates,
-    charactersAlphabetized
+    charactersAlphabetized,
   });
 });

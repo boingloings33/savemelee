@@ -47,6 +47,7 @@ if (homePage) {
   });
 
   const characterImg = document.querySelectorAll(".character__icon");
+  const characterBox = document.querySelectorAll(".character__box");
   const homeTitle = document.querySelector(".home__title");
   const homeSubtitle = document.querySelector(".home__subtitle");
   const uploadButton = document.querySelector(".upload__btn");
@@ -76,6 +77,15 @@ if (homePage) {
       },
       0.2
     );
+    imgLoadDelay(
+      characterBox,
+      (img) => {
+        if (img) {
+          img.classList.add("fade");
+        }
+      },
+      0.2
+    );
   });
 }
 if (characterPage) {
@@ -90,13 +100,15 @@ if (characterPage) {
   const prevButton = document.querySelector(".page__btn__prev");
   const protocol = location.protocol + "//" + location.host;
   const pageCounter = document.querySelector(".page__counter");
-  const currentUrlPage = window.location.href.slice(-1);
+  const pathParts = window.location.pathname.split("/");
+  const currentUrlPage = parseInt(pathParts[pathParts.length - 1]) || 1;
   const characterToken = document.querySelector(".character__token").dataset.token;
   const savesateAmountToken = Number(document.querySelector(".savestate__amount__token").dataset.token);
+  const searchParams = new URLSearchParams(window.location.search).toString();
 
   let savestateRowAmount = document.querySelectorAll("tr.savestate_row").length;
 
-  pageCounter.textContent = `${currentUrlPage}/${Math.ceil(savesateAmountToken / 20)}`;
+  pageCounter.textContent = `${Number(currentUrlPage)}/${Math.ceil(savesateAmountToken / 20)}`;
 
   if (savestateRowAmount < 20 || savestateRowAmount * currentUrlPage === savesateAmountToken) {
     nextButton.classList.add("unactive");
@@ -112,10 +124,10 @@ if (characterPage) {
     prevButton.classList.add("unactive");
   }
   nextButton.addEventListener("click", () => {
-    nextButton.href = `/character/${characterToken}/${Number(currentUrlPage) + 1}`;
+    nextButton.href = `/character/${characterToken}/${Number(currentUrlPage) + 1}?${searchParams}`;
   });
   prevButton.addEventListener("click", () => {
-    prevButton.href = `/character/${characterToken}/${Number(currentUrlPage) - 1}`;
+    prevButton.href = `/character/${characterToken}/${Number(currentUrlPage) - 1}?${searchParams}`;
   });
 
   shareButton.forEach((btn) => {

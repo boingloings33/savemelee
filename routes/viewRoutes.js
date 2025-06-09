@@ -16,7 +16,7 @@ const {
 } = require("../controllers/viewController");
 
 router.get("/", isLoggedIn, getHome);
-router.get("/character/:character/:page", isLoggedIn, getCharacterPage);
+router.get("/character/:character/:page?", isLoggedIn, getCharacterPage);
 router.get("/login", getLogin);
 router.get("/signup", getSignup);
 router.get("/me", protect, isLoggedIn, getMe);
