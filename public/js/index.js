@@ -96,7 +96,7 @@ if (characterPage) {
   const reportForm = document.querySelector(".report__form");
   const closeIcon = document.querySelector(".close__icon");
   const shareButton = document.querySelectorAll(".share__btn");
-
+  const deleteButton = document.querySelectorAll(".delete__btn");
   const protocol = location.protocol + "//" + location.host;
   const characterToken = document.querySelector(".character__token").dataset.token;
 
@@ -119,6 +119,15 @@ if (characterPage) {
       reportedSavestate = btn.dataset.token;
     });
   });
+
+  if (deleteButton) {
+    deleteButton.forEach((btn, i) => {
+      btn.addEventListener("click", () => {
+        deleteSavestate(btn.dataset.token);
+      });
+    });
+  }
+
   reportForm.addEventListener("submit", () => {
     emailReport(reportedSavestate, reportForm.report.value, characterToken);
   });

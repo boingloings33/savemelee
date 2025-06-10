@@ -44,33 +44,34 @@ block content
             p#desc__characters__remaining
           .form__group
             button.dialog__submit.btn.btn__yellow.unactive__btn(type="submit") Submit &nbsp
-      table.savestate__table
-        thead
-          tr.savestate__row
-            th(scope="col") Character As
-            th(scope="col") Character Against
-            th(scope="col") Title
-            th(scope="col") Description
-            th(scope="col") File
-            th(scope="col") Edit
+      .tableWrap
+        table.savestate__table
+          thead
+            tr.savestate__row
+              th(scope="col") Character As
+              th(scope="col") Character Against
+              th(scope="col") Title
+              th(scope="col") Description
+              th(scope="col") File
 
-        tbody
-          each savestate in userSavestates
-            tr.savestate_row(data-token=`${savestate._id}`)
-              td.savestate__item.character__as #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
-              td.savestate__item.character__against #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
-              td.savestate__item.savestate__title #{ savestate.title }
-              td.savestate__item.savestate__description #{ savestate.description }
-              td.savestate__item
-                a(href=`/gci/${savestate.file}`, download) Download
-              td.savestate__item.icon__group
-                a.edit__btn(data-token=`${savestate._id}`)
-                  svg.icon
-                    use(xlink:href="/img/icons.svg#icon-edit")
-                a.share__btn(data-token=`${savestate._id}`)
-                  svg.icon
-                    use(xlink:href="/img/icons.svg#icon-share") 
-                a.delete__btn(data-token=`${savestate._id}`)
-                  svg.icon
-                    use(xlink:href="/img/icons.svg#icon-delete")
+          tbody
+            each savestate in userSavestates
+              tr.savestate_row(data-token=`${savestate._id}`)
+                td.savestate__item.character__as #{ savestate.character[0].toUpperCase() + savestate.character.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
+                td.savestate__item.character__against #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
+                td.savestate__item.savestate__title #{ savestate.title }
+                td.savestate__item.savestate__description #{ savestate.description }
+                td.savestate__item.icon__group
+                  a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download).download__btn(data-token=`${savestate._id}`)
+                    svg.icon
+                      use(xlink:href="#icon-download")    
+                  a.edit__btn(data-token=`${savestate._id}`)
+                    svg.icon
+                      use(xlink:href="#icon-edit")
+                  a.share__btn(data-token=`${savestate._id}`)
+                    svg.icon
+                      use(xlink:href="#icon-link") 
+                  a.delete__btn(data-token=`${savestate._id}`)
+                    svg.icon
+                      use(xlink:href="#icon-delete")
     .user__id(data-token=`${user.id}`)

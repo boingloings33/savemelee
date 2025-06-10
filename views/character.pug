@@ -70,7 +70,11 @@ block content
                           use(xlink:href="#icon-link")
                       a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download).download__btn(data-token=`${savestate._id}`)
                         svg.icon
-                          use(xlink:href="#icon-download")    
+                          use(xlink:href="#icon-download")   
+                      if (user && user.role === "admin")
+                        a.delete__btn(data-token=`${savestate._id}`)
+                          svg.icon
+                            use(xlink:href="#icon-delete")
                         
                 if (!savestate.user)
                   td.savestate__item.icon__group --ACCOUNT DELETED--
