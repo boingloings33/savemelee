@@ -10,7 +10,8 @@ block content
             option(value="") All Characters
             if allCharacters
               each vs in allCharacters
-                option(value=vs selected=(characterAgainst === vs) ? 'selected' : false)= vs
+                - const formattedVs = vs[0].toUpperCase() + vs.slice(1).toLowerCase().replaceAll('-', ' ')
+                option(value=vs selected=(characterAgainst === vs) ? 'selected' : false)= formattedVs
           label(for="uploadedBy") Uploaded By:
           select(name="uploadedBy")
             option(value="") All Users

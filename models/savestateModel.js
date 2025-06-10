@@ -37,7 +37,7 @@ const savestateSchema = new mongoose.Schema({
       "pikachu",
       "jigglypuff",
       "mewtwo",
-      "g&w",
+      "game-and-watch",
       "marth",
       "roy",
     ],
@@ -69,7 +69,7 @@ const savestateSchema = new mongoose.Schema({
       "pikachu",
       "jigglypuff",
       "mewtwo",
-      "g&w",
+      "game-and-watch",
       "marth",
       "roy",
     ],
@@ -87,8 +87,7 @@ const savestateSchema = new mongoose.Schema({
           return false;
         }
       },
-      message: (props) =>
-        `File includes invalid characters (such as % \ :/ * ? " < > |) or doesn't end in .gci`,
+      message: (props) => `File includes invalid characters (such as % \ :/ * ? " < > |) or doesn't end in .gci`,
     },
   },
   user: {
