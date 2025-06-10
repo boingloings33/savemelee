@@ -11,7 +11,6 @@ block content
             if allCharacters
               each vs in allCharacters
                 option(value=vs selected=(characterAgainst === vs) ? 'selected' : false)= vs
-
           label(for="uploadedBy") Uploaded By:
           select(name="uploadedBy")
             option(value="") All Users
@@ -21,7 +20,7 @@ block content
           button(type="submit").btn.btn__fg Apply Filters
       dialog.report__dialog
         svg.close__icon
-          use(xlink:href=`/img/icons.svg#icon-x`)
+          use(xlink:href=`#icon-x`)
         h1.report__form__title Report a savestate
         form.report__form(method='dialog')
           div
@@ -49,7 +48,6 @@ block content
               th(scope="col") Character Vs
               th(scope="col") Title
               th(scope="col") Description
-              th(scope="col") File
               th(scope="col") Uploaded By
         
 
@@ -60,32 +58,26 @@ block content
                 td.savestate__item #{ savestate.characterAgainst[0].toUpperCase() + savestate.characterAgainst.slice(1).toLowerCase().replaceAll('-', ' ').replaceAll('_', '/') }
                 td.savestate__item #{ savestate.title.replaceAll(".gci", "") }
                 td.savestate__item #{savestate.description}
-                td.savestate__item
-                  a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download) Download
                 if (savestate.user)
                   td.savestate__item.uploaded__by.icon__group
                     span.username #{ savestate.user.username }
                     span
                       a.report__btn(data-token=`${savestate._id}`)
                         svg.icon
-                          use(xlink:href=`/img/icons.svg#icon-alert-triangle`)
+                          use(xlink:href=`#icon-alert-triangle`)
                       a.share__btn(data-token=`${savestate._id}`)
                         svg.icon
-                          use(xlink:href="/img/icons.svg#icon-share")
+                          use(xlink:href="#icon-link")
+                      a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download).download__btn(data-token=`${savestate._id}`)
+                        svg.icon
+                          use(xlink:href="#icon-download")    
+                        
                 if (!savestate.user)
                   td.savestate__item.icon__group --ACCOUNT DELETED--
-      //- .page__btns
-      //-   a.page__btn.page__btn__prev(
-      //-   href=`/character/${character}/${prevPage}?characterAgainst=${characterAgainst}&uploadedBy=${uploadedBy}`
-      //-   ) previous page
-
-      //-   a.page__btn.page__btn__next(
-      //-   href=`/character/${character}/${nextPage}?characterAgainst=${characterAgainst}&uploadedBy=${uploadedBy}`
-      //-   ) next page
-      //-   p.page__counter --PAGENUMBERS--
     .character__token(data-token=`${characterSavestate[0].character}`)
     .savestate__amount__token(data-token=`${savestateAmount}`)
-  if (characterSavestate.length === 0 && characterAgainst !== null && uploaded__by !== null)
-    h1 test  
   else if (characterSavestate.length === 0)
+    if isFiltered
+      include filterMismatch
+    else 
       include noSavestates   

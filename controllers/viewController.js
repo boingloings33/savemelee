@@ -25,7 +25,7 @@ exports.getCharacterPage = async (req, res, next) => {
 
     // Build query string
     let query = `page=${page}&limit=20`;
-    if (characterAgainst) query += `&characterVs=${characterAgainst}`;
+    if (characterAgainst) query += `&characterAgainst=${characterAgainst}`;
     if (uploadedBy) query += `&uploadedBy=${uploadedBy}`;
 
     // Get filtered savestates
@@ -39,17 +39,11 @@ exports.getCharacterPage = async (req, res, next) => {
       `${req.protocol}://${req.get("host")}/api/v1/savestates/character/${req.params.character}`
     );
     const allSavestates = unfilteredResult.data.savestates;
-    const savestateAmount = allSavestates.length;
 
     // Safely extract filter options
     const allCharacters = [...new Set(allSavestates.map((s) => s.characterAgainst))];
     const allUploaders = [...new Set(allSavestates.map((s) => s.user?.username).filter(Boolean))];
-
-    const pageNum = Number(req.params.page) || 1;
-    const limit = 20;
-
-    const prevPage = pageNum > 1 ? pageNum - 1 : 1;
-    const nextPage = pageNum + 1; // Optionally restrict to max pages
+    const isFiltered = !!(characterAgainst || uploadedBy);
 
     // Render page with data
     res.status(200).render("character", {
@@ -60,9 +54,7 @@ exports.getCharacterPage = async (req, res, next) => {
       allUploaders,
       characterAgainst,
       uploadedBy,
-      savestateAmount,
-      prevPage,
-      nextPage,
+      isFiltered,
     });
   } catch (err) {
     console.error(err);

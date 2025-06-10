@@ -759,6 +759,10 @@ tbody > tr:nth-of-type(even) {
   margin: 0 auto;
 }
 
+.mismatch__page {
+  padding: 1rem;
+}
+
 /* Dialogs */
 .report__dialog {
   position: absolute;

@@ -52,7 +52,6 @@ exports.createSavestate = catchAsync(async (req, res, next) => {
 });
 exports.getAllSavestates = factory.getAll(Savestate);
 exports.updateSavestate = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const doc = await Savestate.findByIdAndUpdate(req.params.savestateId, req.body, {
     new: true,
     runValidators: true,
@@ -71,9 +70,6 @@ exports.updateSavestate = catchAsync(async (req, res, next) => {
 exports.getSavestate = catchAsync(async (req, res, next) => {
   let query = Savestate.findById(req.params.savestateId);
   const savestate = await query;
-
-  console.log(savestate);
-
   if (!savestate) {
     return next(new AppError("No savestate found with that ID", 404));
   }
@@ -134,6 +130,7 @@ exports.getSavestatesByUser = catchAsync(async (req, res, next) => {
 });
 exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
   const characters = Savestate.schema.path("character").enumValues;
+  const { characterAgainst, uploadedBy } = req.query;
   if (!characters.includes(req.params.character)) {
     return next(new AppError("Character name invalid"), 400);
   }
@@ -143,16 +140,14 @@ exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(query, req.query).sort();
 
   let savestates = await features.query;
-
   // Step 2: Apply additional filters from req.query (manual post-filtering)
-  if (req.query.characterVs) {
-    savestates = savestates.filter((s) => s.characterAgainst === req.query.characterVs);
+  if (req.query.characterAgainst) {
+    savestates = savestates.filter((s) => s.characterAgainst === characterAgainst);
   }
 
   if (req.query.uploadedBy) {
-    savestates = savestates.filter((s) => s.user?.username === req.query.uploadedBy);
+    savestates = savestates.filter((s) => s.user?.username === uploadedBy);
   }
-
   res.status(200).json({
     status: "success",
     results: savestates.length,
