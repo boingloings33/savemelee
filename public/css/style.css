@@ -380,9 +380,16 @@ input:-webkit-autofill:focus {
   border-top: solid 1px var(--white-alt);
 }
 
+.tableWrap {
+  max-height: 60vh;
+  overflow: auto;
+}
+
 thead {
   background-color: var(--gamecube-color);
   color: white;
+  position: sticky;
+  top: 0;
 }
 
 th:last-child {

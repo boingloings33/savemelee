@@ -140,7 +140,7 @@ exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
 
   // Step 1: Get all matching savestates for the character and populate the user
   let query = Savestate.find({ character: req.params.character }).populate("user");
-  const features = new APIFeatures(query, req.query).paginate().sort();
+  const features = new APIFeatures(query, req.query).sort();
 
   let savestates = await features.query;
 
