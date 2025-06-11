@@ -19,6 +19,7 @@ const deleteAccountForm = document.querySelector(".delete__account__form");
 const logOutBtn = document.querySelector(".logout__btn");
 const savestateByUserPage = document.querySelector(".savestate__by__user__page");
 
+// JS logic for each page.
 if (homePage) {
   const sheikBox = document.querySelectorAll(".character__box")[15];
   sheikBox.className = "character__box zindex";
@@ -273,6 +274,7 @@ if (savestateByUserPage) {
   closeIcon.addEventListener("click", () => updateDialog.close());
 }
 
+// Handle events on header/footer
 logOutBtn?.addEventListener("click", logout);
 
 reportBug?.addEventListener("click", () => {

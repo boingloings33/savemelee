@@ -1,3 +1,5 @@
+// This model is currently not used
+// May implement review system later, but low priority.
 const mongoose = require("mongoose");
 const Savestate = require("./savestateModel");
 

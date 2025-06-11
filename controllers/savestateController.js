@@ -13,6 +13,7 @@ exports.aliasTopSavestates = (req, res, next) => {
   next();
 };
 
+// Handles storing .gci files to AWS buckets
 const s3 = new S3Client({
   credentials: {
     accessKeyId: process.env.AWS_IAM_ACCESS_KEY,
@@ -34,8 +35,9 @@ const s3Storage = multerS3({
 const upload = multer({
   storage: s3Storage,
 });
-
 exports.uploadGCIFile = upload.single("file");
+
+// Savestate controllers
 exports.createSavestate = catchAsync(async (req, res, next) => {
   const newSavestate = await Savestate.create({
     character: req.body.character,
@@ -134,13 +136,10 @@ exports.getCharacterSavestates = catchAsync(async (req, res, next) => {
   if (!characters.includes(req.params.character)) {
     return next(new AppError("Character name invalid"), 400);
   }
-
-  // Step 1: Get all matching savestates for the character and populate the user
   let query = Savestate.find({ character: req.params.character }).populate("user");
   const features = new APIFeatures(query, req.query).sort();
 
   let savestates = await features.query;
-  // Step 2: Apply additional filters from req.query (manual post-filtering)
   if (req.query.characterAgainst) {
     savestates = savestates.filter((s) => s.characterAgainst === characterAgainst);
   }
