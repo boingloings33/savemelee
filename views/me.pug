@@ -18,41 +18,42 @@ block content
             type="email",
             value=`${user.email}`,
             required
+            readonly
           )
         .form__group
           button.btn.btn__yellow Save settings
           a.btn.btn__green.edit__savestates(href=`/user-savestates/${user.id}`) Edit/Delete my savestates
       .line &nbsp;
-      .update__password__form
-        h2.heading__secondary Update Password
-        form.form.form__user__data
-          .form__group
-            label.form__label(for="password-current") Current password
-            input#password-current.form__input(
-              type="password",
-              placeholder="••••••••",
-              required,
-              minlength="8",
-              autocomplete="new-password"
-            )
-          .form__group
-            label.form__label(for="password") New password
-            input#password.form__input(
-              type="password",
-              placeholder="••••••••",
-              required,
-              minlength="8",
-              autocomplete="new-password"
-            )
-          .form__group
-            label.form__label(for="password-confirm") Confirm password
-            input#password-confirm.form__input(
-              type="password",
-              placeholder="••••••••",
-              required,
-              minlength="8",
-              autocomplete="new-password"
-            )
-          .form__group
-            button.btn.btn__yellow Save password
-            a.btn.btn__red(href="/delete-account") Delete Account
+      //- .update__password__form
+      //-   h2.heading__secondary Update Password
+      //-   form.form.form__user__data
+      //-     .form__group
+      //-       label.form__label(for="password-current") Current password
+      //-       input#password-current.form__input(
+      //-         type="password",
+      //-         placeholder="••••••••",
+      //-         required,
+      //-         minlength="8",
+      //-         autocomplete="new-password"
+      //-       )
+      //-     .form__group
+      //-       label.form__label(for="password") New password
+      //-       input#password.form__input(
+      //-         type="password",
+      //-         placeholder="••••••••",
+      //-         required,
+      //-         minlength="8",
+      //-         autocomplete="new-password"
+      //-       )
+      //-     .form__group
+      //-       label.form__label(for="password-confirm") Confirm password
+      //-       input#password-confirm.form__input(
+      //-         type="password",
+      //-         placeholder="••••••••",
+      //-         required,
+      //-         minlength="8",
+      //-         autocomplete="new-password"
+      //-       )
+      //-     .form__group
+      //-       button.btn.btn__yellow Save password
+      a.btn.btn__red(href="/delete-account") Delete Account
