@@ -1,13 +1,15 @@
 import axios from "axios";
 import { showAlert } from "./alert";
 
-export const emailReport = async (savestateId, reportValue, character) => {
+export const emailReport = async (savestateId, reportValue, character, savestateName) => {
   try {
     const res = await axios({
       method: "POST",
       url: "https://formspree.io/f/mayrbbew",
       data: {
         savestateId,
+        savestateName,
+        character,
         reportValue,
       },
     });

@@ -90,6 +90,7 @@ if (homePage) {
 }
 if (characterPage) {
   let reportedSavestate = "";
+  let savestateTitle = "";
   const username = document.querySelectorAll(".username");
   const reportButton = document.querySelectorAll(".report__btn");
   const reportDialog = document.querySelector(".report__dialog");
@@ -117,6 +118,7 @@ if (characterPage) {
       reportForm.reset();
       reportDialog.returnValue = "none";
       reportedSavestate = btn.dataset.token;
+      savestateTitle = btn.dataset.title;
     });
   });
 
@@ -129,7 +131,7 @@ if (characterPage) {
   }
 
   reportForm.addEventListener("submit", () => {
-    emailReport(reportedSavestate, reportForm.report.value, characterToken);
+    emailReport(reportedSavestate, reportForm.report.value, characterToken, savestateTitle);
   });
   closeIcon.addEventListener("click", () => {
     reportDialog.close();

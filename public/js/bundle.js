@@ -2290,13 +2290,15 @@
   };
 
   // public/js/emailReport.js
-  var emailReport = async (savestateId, reportValue, character) => {
+  var emailReport = async (savestateId, reportValue, character, savestateName) => {
     try {
       const res = await axios_default({
         method: "POST",
         url: "https://formspree.io/f/mayrbbew",
         data: {
           savestateId,
+          savestateName,
+          character,
           reportValue
         }
       });
@@ -2412,6 +2414,7 @@
   }
   if (characterPage) {
     let reportedSavestate = "";
+    let savestateTitle = "";
     const username = document.querySelectorAll(".username");
     const reportButton = document.querySelectorAll(".report__btn");
     const reportDialog = document.querySelector(".report__dialog");
@@ -2438,6 +2441,7 @@
         reportForm.reset();
         reportDialog.returnValue = "none";
         reportedSavestate = btn.dataset.token;
+        savestateTitle = btn.dataset.title;
       });
     });
     if (deleteButton) {
@@ -2448,7 +2452,7 @@
       });
     }
     reportForm.addEventListener("submit", () => {
-      emailReport(reportedSavestate, reportForm.report.value, characterToken);
+      emailReport(reportedSavestate, reportForm.report.value, characterToken, savestateTitle);
     });
     closeIcon.addEventListener("click", () => {
       reportDialog.close();

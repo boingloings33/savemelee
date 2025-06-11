@@ -63,10 +63,10 @@ block content
                   td.savestate__item.uploaded__by.icon__group
                     span.username #{ savestate.user.username }
                     span
-                      a.report__btn(data-token=`${savestate._id}`)
+                      a.report__btn(data-token=savestate._id data-title=savestate.title)
                         svg.icon
                           use(xlink:href=`#icon-alert-triangle`)
-                      a.share__btn(data-token=`${savestate._id}`)
+                      a.share__btn(data-token=savestate._id)
                         svg.icon
                           use(xlink:href="#icon-link")
                       a(href=`https://savemeleegci.s3.us-east-2.amazonaws.com/${savestate.file.replaceAll(" ", "+")}`, download).download__btn(data-token=`${savestate._id}`)
