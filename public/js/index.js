@@ -102,7 +102,7 @@ if (characterPage) {
 
   username.forEach((name) => {
     if (name.textContent.length > 8) {
-      name.textContent = `${name.textContent.slice(0, 7)}...`;
+      name.textContent = `${name.textContent.slice(0, 10)}...`;
     }
   });
   shareButton.forEach((btn) => {

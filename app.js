@@ -21,8 +21,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 if (process.env.NODE_ENV === "production") {
   app.use((req, res, next) => {
-    if (req.header("x-forwarded-proto") !== "https")
-      res.redirect(`https://${req.header("host")}${req.url}`);
+    if (req.header("x-forwarded-proto") !== "https") res.redirect(`https://${req.header("host")}${req.url}`);
     else next();
   });
 }
@@ -42,13 +41,7 @@ app.use(
         childSrc: ["'self'", "blob:"],
         imgSrc: ["'self'", "data:", "blob:"],
         formAction: ["'self'", "https://formspree.io"],
-        connectSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "data:",
-          "blob:",
-          "https://formspree.io",
-        ],
+        connectSrc: ["'self'", "'unsafe-inline'", "data:", "blob:", "https://formspree.io"],
         upgradeInsecureRequests: [],
       },
     },
@@ -62,7 +55,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Limit requests from same IP
 const limiter = rateLimit({
-  max: 1000,
+  max: 100,
   windowMs: 60 * 60 * 1000,
   message: "Too many requests from this IP, please try again in an hour",
 });
