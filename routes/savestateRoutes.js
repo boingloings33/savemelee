@@ -17,14 +17,11 @@ router.use("/:savestateId/reviews", reviewRouter);
 
 router
   .route("/")
-  .get(restrictTo("admin"), getAllSavestates)
+  // .get(restrictTo("admin"), getAllSavestates)
+  .get(getAllSavestates)
   .post(protect, uploadGCIFile, createSavestate);
 
-router
-  .route("/:savestateId")
-  .get(getSavestate)
-  .patch(protect, updateSavestate)
-  .delete(protect, deleteSavestate);
+router.route("/:savestateId").get(getSavestate).patch(protect, updateSavestate).delete(protect, deleteSavestate);
 router.route("/character/:character").get(getCharacterSavestates);
 router.route("/user/:id").get(getSavestatesByUser);
 
